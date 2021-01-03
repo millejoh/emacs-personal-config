@@ -5,7 +5,6 @@
 ;;;
 
 (setq ring-bell-function 'ignore)
-
 (setq visual-bell t)
 
 ;; Package management by straight.el
@@ -154,3 +153,8 @@
 (setq nano-use-light-theme t)
 
 (load "~/.emacs.d/nano.el")
+
+;; Customizations (make this machine dependent)
+
+(setq custom-file "~/.emacs.d/customizations.el")
+(load custom-file)
