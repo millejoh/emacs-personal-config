@@ -94,7 +94,7 @@
 (nano-theme)
 
 ;; Nano default settings (optional)
-(require 'nano-defaults)
+;; (require 'nano-defaults)
 
 ;; Nano session saving (optional)
 (require 'nano-session)

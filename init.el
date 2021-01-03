@@ -50,62 +50,61 @@
 (use-package general
   :config
   (general-auto-unbind-keys)
-  :general
-  (:states '(normal visual insert emacs)
-           :prefix "SPC"
-           :non-normal-prefix "C-SPC"
-           
-           "SPC" '(counsel-M-x :which-key "M-x")
-           
-           ;; Buffer Commands
-           "b" '(:ignore t :which-key "windows")
-           "bb" 'ivy-switch-buffer
-           "bI" 'ibuffer
-           "bd" 'kill-buffer
+  (general-define-key :states '(normal visual insert emacs)
+                      :prefix "SPC"
+                      :non-normal-prefix "C-SPC"
+                      
+                      "SPC" '(counsel-M-x :which-key "M-x")
+                      
+                      ;; Buffer Commands
+                      "b" '(:ignore t :which-key "windows")
+                      "bb" 'ivy-switch-buffer
+                      "bI" 'ibuffer
+                      "bd" 'kill-buffer
 
-           ;; File Commands
-           "fs" 'save-buffer
-           "ff" 'find-file
+                      ;; File Commands
+                      "fs" 'save-buffer
+                      "ff" 'find-file
 
-           ;; Window Commands
-           "w" '(:ignore t :which-key "windows")
-           "wh" 'evil-window-left
-           "wl" 'evil-window-right
-           "wk" 'evil-window-up
-           "wj" 'evil-window-down
-           "w/" 'split-window-horizontally
-           
-           ;; Toggles
-           "T" '(:ignore t :which-key "UI Toggles/Themes")
-           "TF" 'toggle-frame-fullscreen
-           "Tm" 'menu-bar-mode
+                      ;; Window Commands
+                      "w" '(:ignore t :which-key "windows")
+                      "wh" 'evil-window-left
+                      "wl" 'evil-window-right
+                      "wk" 'evil-window-up
+                      "wj" 'evil-window-down
+                      "w/" 'split-window-horizontally
+                      
+                      ;; Toggles
+                      "T" '(:ignore t :which-key "UI Toggles/Themes")
+                      "TF" 'toggle-frame-fullscreen
+                      "Tm" 'menu-bar-mode
 
-           ;; Jumps
-           "j" '(:ignore t :which-key "jump/join/split")
-           "jl" 'avy-goto-line
-           "jw" 'avy-goto-word-1
-           "jc" 'avy-goto-char
+                      ;; Jumps
+                      "j" '(:ignore t :which-key "jump/join/split")
+                      "jl" 'avy-goto-line
+                      "jw" 'avy-goto-word-1
+                      "jc" 'avy-goto-char
 
-           ;; Exiting Emacs
+                      ;; Exiting Emacs
 
-           "q" '(:ignore t :which-key "Exit")
-           "qq" 'nano--delete-frame-or-kill-emacs 
-           "qQ" 'kill-emacs
+                      "q" '(:ignore t :which-key "Exit")
+                      "qq" 'nano--delete-frame-or-kill-emacs 
+                      "qQ" 'kill-emacs
 
-           ;; Applications
-           "a" '(:ignore t :which-key "Applications")
-           "ar" 'ranger
-           "ad" 'dired
-	   "ay" '(:ignore t :which-key "Emacs IPython Notebook")
-	   "ayr" 'ein:run
-	   "ayl" 'ein:login
-	   "ayd" 'ein:stop
+                      ;; Applications
+                      "a" '(:ignore t :which-key "Applications")
+                      "ar" 'ranger
+                      "ad" 'dired
+                      "ay" '(:ignore t :which-key "Emacs IPython Notebook")
+                      "ayr" 'ein:run
+                      "ayl" 'ein:login
+                      "ayd" 'ein:stop
 
-           ;; Magit
-           "g" '(:ignore t :which-key "Magit")
-           "gs" 'magit-status
-           "gc" 'magit-clone
-           ))
+                      ;; Magit
+                      "g" '(:ignore t :which-key "Magit")
+                      "gs" 'magit-status
+                      "gc" 'magit-clone
+                      ))
 
 (use-package which-key
   :init
@@ -134,6 +133,7 @@
   :straight '(ein-kernel-utils :type git :host github :repo "millejoh/ein-kernel-utils"))
 
 (load "~/.emacs.d/user.el")
+(load "~/.emacs.d/common-lisp.el")
 
 ;; Paredit
 (use-package paredit
