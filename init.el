@@ -48,13 +48,15 @@
 ;; Let's recreate spacemacs
 
 (use-package general
-  :config (general-define-key
-           :states '(normal visual insert emacs)
+  :config
+  (general-auto-unbind-keys)
+  :general
+  (:states '(normal visual insert emacs)
            :prefix "SPC"
            :non-normal-prefix "C-SPC"
-
+           
            "SPC" '(counsel-M-x :which-key "M-x")
-
+           
            ;; Buffer Commands
            "b" '(:ignore t :which-key "windows")
            "bb" 'ivy-switch-buffer
@@ -75,7 +77,7 @@
            
            ;; Toggles
            "T" '(:ignore t :which-key "UI Toggles/Themes")
-           "tF" 'toggle-frame-fullscreen
+           "TF" 'toggle-frame-fullscreen
            "Tm" 'menu-bar-mode
 
            ;; Jumps
@@ -97,7 +99,13 @@
 	   "ay" '(:ignore t :which-key "Emacs IPython Notebook")
 	   "ayr" 'ein:run
 	   "ayl" 'ein:login
-	   "ayd" 'ein:stop))
+	   "ayd" 'ein:stop
+
+           ;; Magit
+           "g" '(:ignore t :which-key "Magit")
+           "gs" 'magit-status
+           "gc" 'magit-clone
+           ))
 
 (use-package which-key
   :init
@@ -106,6 +114,10 @@
   :config
   (which-key-mode 1))
 
+(use-package load-env-vars)
+
+(when (eql system-type 'windows-nt)
+  (load-env-vars "~/.emacs.d/work.env")) ;; Need to detect which windows host?
 
 ;; Move to somewhere else?
 (use-package magit)
@@ -113,6 +125,10 @@
 (use-package ein)
 
 (use-package pos-tip)
+
+(use-package company
+  :config
+  (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package ein-kernel-utils
   :straight '(ein-kernel-utils :type git :host github :repo "millejoh/ein-kernel-utils"))
