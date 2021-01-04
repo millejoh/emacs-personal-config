@@ -30,6 +30,7 @@
 (require 'use-package)
 
 ;; Essentials: Evil / Which-key / General / avy / ivy
+(use-package s)
 
 (use-package evil
   :config (evil-mode 1)
@@ -37,15 +38,18 @@
   (setq evil-emacs-state-modes (delq 'ibuffer-mode evil-emacs-state-modes)))
 
 (use-package ivy
-  :init (ivy-mode 1)
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
   :commands (ivy-switch-buffer))
 
 (use-package counsel
   :commands (counsel-M-x))
 
+(use-package swiper)
+
 (use-package avy
   :commands (avy-goto-word-1))
-
 
 (use-package general
   :config
@@ -127,6 +131,7 @@
   :config
   (add-hook 'after-init-hook 'global-company-mode))
 
+(use-package pandoc-mode)
 ;; Configure iBuffer
 
 (setq ibuffer-saved-filter-groups
@@ -141,8 +146,6 @@
 	  (mode . org-mode))
 	 ("text-mode"
 	  (mode . text-mode))
-	 ("spacemacs-buffer-mode"
-	  (mode . spacemacs-buffer-mode))
 	 ("ein:notebook"
 	  (or
            (name . "\\*ein: http:.*\\*")
@@ -163,7 +166,12 @@
 	 ("ein:shared-output-mode"
 	  (mode . ein:shared-output-mode)))))
 
+;; (add-hook 'ibuffer-mode-hook
+;; 	  '(lambda ()
+;; 	     (ibuffer-switch-to-saved-filter-groups "Home")))
+
 ;; Paredit
+
 (use-package paredit
   :init (progn
           (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)

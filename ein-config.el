@@ -42,6 +42,9 @@
 (use-package ein-kernel-utils
   :straight '(ein-kernel-utils :type git :host github :repo "millejoh/ein-kernel-utils")
   :config
+  (require 'ein-kernel-completion)
+  (require 'ein-buffer-connect)
+  (add-hook 'ein:notebook-mode-hook #'(lambda () (add-to-list 'company-backends 'ein:company-backend)))
   (add-hook 'ein:notebook-mode-hook
             #'(lambda ()
                 (when (featurep 'eldoc)
@@ -51,6 +54,17 @@
   (add-hook 'ein:on-kernel-connect-functions #'(lambda (kernel)
                                                  (ein:kernel-utils-load-safely kernel)))
   (add-hook 'org-src-mode-hook #'ein:on-edit-source-block)
+  (add-hook 'hy-mode-hook
+	    (lambda ()
+	      (define-key python-mode-map "\C-c." 'ein:kernel-utils-jump-to-source)
+	      (define-key python-mode-map "\C-c\C-h" 'ein:kernel-utils-request-tooltip-or-help)
+	      (define-key python-mode-map "\C-c\C-c" 'ein:connect-run-or-eval-buffer)
+	      (define-key python-mode-map "\C-c\C-l" 'ein:connect-reload-buffer)
+	      (define-key python-mode-map "\C-c\C-r" 'ein:connect-eval-region)
+	      (define-key python-mode-map (kbd "C-:") 'ein:shared-output-eval-string)
+	      (define-key python-mode-map "\C-c\C-z" 'ein:connect-pop-to-notebook)
+	      (define-key python-mode-map "\C-c\C-x" 'ein:tb-show)
+	      (define-key python-mode-map (kbd "C-c C-/") 'ein:notebook-scratchsheet-open)))
   (add-hook 'python-mode-hook
             (lambda ()
               (define-key python-mode-map "\C-c." 'ein:kernel-utils-jump-to-source)
@@ -61,4 +75,4 @@
               (define-key python-mode-map (kbd "C-:") 'ein:shared-output-eval-string)
               (define-key python-mode-map "\C-c\C-z" 'ein:connect-pop-to-notebook)
               (define-key python-mode-map "\C-c\C-x" 'ein:tb-show)
-              (define-key python-mode-map (kbd "C-c C-/") 'ein:notebook-scratchsheet-open))
+              (define-key python-mode-map (kbd "C-c C-/") 'ein:notebook-scratchsheet-open))))
