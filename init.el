@@ -5,7 +5,6 @@
 ;;;
 
 (setq ring-bell-function 'ignore)
-
 (setq visual-bell t)
 
 (show-paren-mode 1)
@@ -187,3 +186,8 @@
 (load "~/.emacs.d/common-lisp.el")
 (load "~/.emacs.d/ein-config.el")
 (load "~/.emacs.d/org-config.el")
+
+;; Customizations (make this machine dependent)
+
+(setq custom-file "~/.emacs.d/customizations.el")
+(load custom-file)
