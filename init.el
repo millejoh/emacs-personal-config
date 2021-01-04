@@ -8,6 +8,8 @@
 
 (setq visual-bell t)
 
+(show-paren-mode 1)
+
 ;; Package management by straight.el
 
 (defvar bootstrap-version)
@@ -28,11 +30,12 @@
 
 (require 'use-package)
 
-;; Evil / Which-key / Hydra / EIN
+;; Essentials: Evil / Which-key / General / avy / ivy
 
 (use-package evil
-  :init (evil-mode 1)
-  (evil-define-key '(normal insert) 'global [?\t] 'indent-for-tab-command))
+  :config (evil-mode 1)
+  (evil-define-key '(normal insert) 'global [?\t] 'indent-for-tab-command)
+  (setq evil-emacs-state-modes (delq 'ibuffer-mode evil-emacs-state-modes)))
 
 (use-package ivy
   :init (ivy-mode 1)
@@ -44,8 +47,6 @@
 (use-package avy
   :commands (avy-goto-word-1))
 
-
-;; Let's recreate spacemacs
 
 (use-package general
   :config
@@ -65,7 +66,6 @@
                       ;; File Commands
                       "fs" 'save-buffer
                       "ff" 'find-file
-
                       ;; Window Commands
                       "w" '(:ignore t :which-key "windows")
                       "wh" 'evil-window-left
@@ -111,7 +111,8 @@
   (setq which-key-separator " ")
   (setq which-key-prefix-prefix "+")
   :config
-  (which-key-mode 1))
+  (which-key-mode 1)
+  (which-key-setup-minibuffer)) ;; This looks better in nano
 
 (use-package load-env-vars)
 
@@ -121,19 +122,47 @@
 ;; Move to somewhere else?
 (use-package magit)
 
-(use-package ein)
-
-(use-package pos-tip)
+(use-package pdf-tools)
 
 (use-package company
   :config
   (add-hook 'after-init-hook 'global-company-mode))
 
-(use-package ein-kernel-utils
-  :straight '(ein-kernel-utils :type git :host github :repo "millejoh/ein-kernel-utils"))
+;; Configure iBuffer
 
-(load "~/.emacs.d/user.el")
-(load "~/.emacs.d/common-lisp.el")
+(setq ibuffer-saved-filter-groups
+      '(("Home"
+	 ("magit-revision-mode"
+	  (mode . magit-revision-mode))
+	 ("markdown-mode"
+	  (mode . markdown-mode))
+	 ("python-mode"
+	  (mode . python-mode))
+	 ("org-mode"
+	  (mode . org-mode))
+	 ("text-mode"
+	  (mode . text-mode))
+	 ("spacemacs-buffer-mode"
+	  (mode . spacemacs-buffer-mode))
+	 ("ein:notebook"
+	  (or
+           (name . "\\*ein: http:.*\\*")
+           (mode . ein:notebook)
+           (predicate ein:get-notebook--notebook)))
+	 ("ein:notebooklist-mode"
+	  (mode . ein:notebooklist-mode))
+	 ("magit-status-mode"
+	  (mode . magit-status-mode))
+	 ("magit-log-mode"
+	  (mode . magit-log-mode))
+	 ("dired-mode"
+	  (mode . dired-mode))
+	 ("emacs-lisp-mode"
+	  (mode . emacs-lisp-mode))
+	 ("lisp"
+	  (mode . lisp-mode))
+	 ("ein:shared-output-mode"
+	  (mode . ein:shared-output-mode)))))
 
 ;; Paredit
 (use-package paredit
@@ -154,3 +183,7 @@
 (setq nano-use-light-theme t)
 
 (load "~/.emacs.d/nano.el")
+(load "~/.emacs.d/user.el")
+(load "~/.emacs.d/common-lisp.el")
+(load "~/.emacs.d/ein-config.el")
+(load "~/.emacs.d/org-config.el")
