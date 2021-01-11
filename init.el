@@ -9,6 +9,12 @@
 
 (show-paren-mode 1)
 
+(setq inhibit-compacting-font-caches t)
+(when (boundp 'w32-pipe-read-delay)
+  (setq 32-pipe-read-delay 0))
+
+;;(edit-server-start)
+
 ;; Package management by straight.el
 
 (defvar bootstrap-version)
@@ -32,10 +38,8 @@
 ;; Essentials: Evil / Which-key / General / avy / ivy
 (use-package s)
 
-(use-package evil
-  :config (evil-mode 1)
-  (evil-define-key '(normal insert) 'global [?\t] 'indent-for-tab-command)
-  (setq evil-emacs-state-modes (delq 'ibuffer-mode evil-emacs-state-modes)))
+(load "~/.emacs.d/evil-config.el")
+
 
 (use-package ivy
   :config
@@ -55,6 +59,7 @@
   :config
   (general-auto-unbind-keys)
   (general-define-key :states '(normal visual insert emacs)
+		      :keymaps 'override
                       :prefix "SPC"
                       :non-normal-prefix "C-SPC"
                       
@@ -91,7 +96,7 @@
                       ;; Exiting Emacs
 
                       "q" '(:ignore t :which-key "Exit")
-                      "qq" 'nano--delete-frame-or-kill-emacs 
+                      "qq" 'save-buffers-kill-terminal
                       "qQ" 'kill-emacs
 
                       ;; Applications
@@ -132,6 +137,13 @@
   (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package pandoc-mode)
+
+(use-package page-break-lines
+  :config
+  (global-page-break-lines-mode 1))
+
+(load "~/.emacs.d/info+.el")
+
 ;; Configure iBuffer
 
 (setq ibuffer-saved-filter-groups

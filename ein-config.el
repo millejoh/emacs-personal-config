@@ -10,6 +10,7 @@
   :commands (ein:run ein:login)
   :general
   (:states 'normal
+	   :keymaps 'ein:notebook-mode-map
 	   :prefix ","
 	   "j" 'ein:worksheet-goto-next-input-km
            "k" 'ein:worksheet-goto-prev-input-km

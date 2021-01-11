@@ -10,6 +10,8 @@
 
 (use-package ox-pandoc)
 
+(use-package evil-org)
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  `((emacs-lisp . t)
