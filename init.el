@@ -13,7 +13,9 @@
 (when (boundp 'w32-pipe-read-delay)
   (setq 32-pipe-read-delay 0))
 
-;;(edit-server-start)
+(use-package edit-server
+  :config
+  (edit-server-start))
 
 ;; Package management by straight.el
 
