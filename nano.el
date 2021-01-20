@@ -93,6 +93,8 @@
 (require 'nano-theme)
 (nano-theme)
 
+(require 'nano-writer)
+
 ;; Nano default settings (optional)
 ;; (require 'nano-defaults)
 

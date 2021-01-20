@@ -13,10 +13,6 @@
 (when (boundp 'w32-pipe-read-delay)
   (setq 32-pipe-read-delay 0))
 
-(use-package edit-server
-  :config
-  (edit-server-start))
-
 ;; Package management by straight.el
 
 (defvar bootstrap-version)
@@ -37,11 +33,15 @@
 
 (require 'use-package)
 
+(use-package edit-server
+  :config
+  (edit-server-start))
+
 ;; Essentials: Evil / Which-key / General / avy / ivy
 (use-package s)
 
-(load "~/.emacs.d/evil-config.el")
 
+(load "~/.emacs.d/evil-config.el")
 
 (use-package ivy
   :config
@@ -184,6 +184,15 @@
 ;; 	  '(lambda ()
 ;; 	     (ibuffer-switch-to-saved-filter-groups "Home")))
 
+;; Yasnippets
+
+(use-package yasnippet)
+
+(use-package yasnippet-snippets
+  :config
+  (yas-reload-all)
+  (add-hook 'prog-mode-hook #'yas-minor-mode))
+
 ;; Paredit
 
 (use-package paredit
@@ -203,11 +212,11 @@
 
 (setq nano-use-light-theme t)
 
-(load "~/.emacs.d/nano.el")
 (load "~/.emacs.d/user.el")
 (load "~/.emacs.d/common-lisp.el")
 (load "~/.emacs.d/ein-config.el")
 (load "~/.emacs.d/org-config.el")
+(load "~/.emacs.d/nano.el")
 
 ;; Customizations (make this machine dependent)
 
