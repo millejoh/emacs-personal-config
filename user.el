@@ -10,6 +10,15 @@
 ;;   (add-hook 'scheme-mode-hook           #'enable-paredit-mode))
 (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
 
+;; (use-package i-ching
+;;   :straight (i-ching :type git :host github :repo "emacsattic/i-ching"
+;; 		     :fork(:host github :repo "zzkt/i-ching"))
+;;   :config (setq i-ching-hexagram-size 18
+;;                 i-ching-hexagram-font "DejaVu Sans"
+;;                 i-ching-divination-method '3-coins
+;;                 i-ching-randomness-source 'pseudo))
+
+
 (straight-use-package
  '(shrface :type git :repo "chenyanming/shrface" :host github))
 
@@ -118,7 +127,7 @@
 
 ;;; Making editing Elisp more like using Slime, from Hemlut Eller ;;;
 
-;(require 'list-callers)
+(load "~/.emacs.d/list-callers.el")
 
 (defun elisp-disassemble (function)
   (interactive (list (function-called-at-point)))
@@ -190,8 +199,8 @@
     ((kbd "C-c C-k") 'elisp-bytecompile-and-load)
     ((kbd "C-c C-l") 'load-file)
     ((kbd "C-c p")   'pp-eval-last-sexp)
-    ((kbd "M-.")     'elisp-find-definition)
-    ((kbd "M-,")     'elisp-pop-found-function)
+    ((kbd "C-c .")     'elisp-find-definition)
+    ((kbd "C-c ,")     'elisp-pop-found-function)
     ((kbd "C-c <")   'list-callers)))
 
 (dolist (binding elisp-extra-keys)

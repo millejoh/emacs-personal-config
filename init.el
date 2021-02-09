@@ -114,7 +114,9 @@
                       "g" '(:ignore t :which-key "Magit")
                       "gs" 'magit-status
                       "gc" 'magit-clone
-                      ))
+
+		      ;;
+		      "H h"  '(i-ching-insert-hexagram)))
 
 (use-package which-key
   :init
@@ -191,7 +193,9 @@
 (use-package yasnippet-snippets
   :config
   (yas-reload-all)
-  (add-hook 'prog-mode-hook #'yas-minor-mode))
+  (add-hook 'prog-mode-hook #'yas-minor-mode)
+  (add-hook 'org-mode #'yas-minor-mode)
+  (add-hook 'writer-mode #'yas-minor-mode))
 
 ;; Paredit
 
