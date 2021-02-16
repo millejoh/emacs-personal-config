@@ -1,0 +1,4 @@
+(add-to-list 'initial-frame-alist '(left . 396))
+(add-to-list 'initial-frame-alist '(top . 396))
+(add-to-list 'initial-frame-alist '(width . 80))
+(add-to-list 'initial-frame-alist '(height . 38))

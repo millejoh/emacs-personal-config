@@ -40,7 +40,6 @@
 ;; Essentials: Evil / Which-key / General / avy / ivy
 (use-package s)
 
-
 (load "~/.emacs.d/evil-config.el")
 
 (use-package ivy
@@ -151,7 +150,7 @@
 ;; Configure iBuffer
 
 (setq ibuffer-saved-filter-groups
-      '(("Home"
+      '(("default" 
 	 ("magit-revision-mode"
 	  (mode . magit-revision-mode))
 	 ("markdown-mode"
@@ -166,7 +165,7 @@
 	  (or
            (name . "\\*ein: http:.*\\*")
            (mode . ein:notebook)
-           (predicate ein:get-notebook--notebook)))
+           (predicate . ein:get-notebook--notebook)))
 	 ("ein:notebooklist-mode"
 	  (mode . ein:notebooklist-mode))
 	 ("magit-status-mode"
@@ -182,9 +181,9 @@
 	 ("ein:shared-output-mode"
 	  (mode . ein:shared-output-mode)))))
 
-;; (add-hook 'ibuffer-mode-hook
-;; 	  '(lambda ()
-;; 	     (ibuffer-switch-to-saved-filter-groups "Home")))
+(add-hook 'ibuffer-mode-hook
+ 	  '(lambda ()
+ 	     (ibuffer-switch-to-saved-filter-groups "default")))
 
 ;; Yasnippets
 
@@ -216,10 +215,13 @@
 
 (setq nano-use-light-theme t)
 
+;; Configuring the rest
+
 (load "~/.emacs.d/user.el")
 (load "~/.emacs.d/common-lisp.el")
 (load "~/.emacs.d/ein-config.el")
 (load "~/.emacs.d/org-config.el")
+(load "~/.emacs.d/elisp-config.el")
 (load "~/.emacs.d/nano.el")
 
 ;; Customizations (make this machine dependent)
