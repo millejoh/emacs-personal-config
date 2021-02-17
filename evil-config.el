@@ -6,9 +6,10 @@
 
 (use-package evil
   :init (setq evil-want-keybinding nil)
-  :config (evil-mode 1)
-  (evil-define-key '(normal insert) 'global [?\t] 'indent-for-tab-command)
-  (setq evil-emacs-state-modes (delq 'ibuffer-mode evil-emacs-state-modes)))
+  :config
+             (evil-mode 1)
+             (evil-define-key '(normal visual insert emacs) 'global [?\t] 'indent-for-tab-command)
+             (setq evil-emacs-state-modes (delq 'ibuffer-mode evil-emacs-state-modes)))
 
 (use-package evil-surround
   :config

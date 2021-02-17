@@ -99,7 +99,7 @@
 ;; (require 'nano-defaults)
 
 ;; Nano session saving (optional)
-(require 'nano-session)
+;; (require 'nano-session)
 
 ;; Nano header & mode lines (optional)
 (require 'nano-modeline)
