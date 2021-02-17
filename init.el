@@ -148,44 +148,6 @@
 
 (load (portacle-path "config/config.d/info+.el"))
 
-;; Configure iBuffer
-
-(setq ibuffer-saved-filter-groups
-      '(("default" 
-	 ("magit-revision-mode"
-	  (mode . magit-revision-mode))
-	 ("markdown-mode"
-	  (mode . markdown-mode))
-	 ("python-mode"
-	  (mode . python-mode))
-	 ("org-mode"
-	  (mode . org-mode))
-	 ("text-mode"
-	  (mode . text-mode))
-	 ("ein:notebook"
-	  (or
-           (name . "\\*ein: http:.*\\*")
-           (mode . ein:notebook)
-           (predicate . ein:get-notebook--notebook)))
-	 ("ein:notebooklist-mode"
-	  (mode . ein:notebooklist-mode))
-	 ("magit-status-mode"
-	  (mode . magit-status-mode))
-	 ("magit-log-mode"
-	  (mode . magit-log-mode))
-	 ("dired-mode"
-	  (mode . dired-mode))
-	 ("emacs-lisp-mode"
-	  (mode . emacs-lisp-mode))
-	 ("lisp"
-	  (mode . lisp-mode))
-	 ("ein:shared-output-mode"
-	  (mode . ein:shared-output-mode)))))
-
-(add-hook 'ibuffer-mode-hook
- 	  '(lambda ()
- 	     (ibuffer-switch-to-saved-filter-groups "default")))
-
 ;; Yasnippets
 
 (use-package yasnippet)
