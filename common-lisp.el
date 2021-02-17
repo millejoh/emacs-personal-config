@@ -5,15 +5,9 @@
 ;;;
 
 
-;; Portacle
-(setq inferior-lisp-program nil)
-
-(add-to-list 'load-path "~/.emacs.d/portacle")
-(if (locate-library "portacle")
-    (load-library "portacle")
-  (display-warning :warning "Basic Portacle scripts are not present."))
 
 ;; Define better keymaps
+(use-package sly)
 
 (general-define-key :keymaps 'sly-inspector-mode-map
                     :states 'normal

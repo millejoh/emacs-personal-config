@@ -224,6 +224,9 @@
 (load "~/.emacs.d/elisp-config.el")
 (load "~/.emacs.d/nano.el")
 
+;; Fix company annoyance
+(define-key company-active-map (kbd "<tab>") 'company-complete-selection)
+
 ;; Customizations (make this machine dependent)
 
 (setq custom-file "~/.emacs.d/customizations.el")
