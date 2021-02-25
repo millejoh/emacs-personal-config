@@ -40,7 +40,7 @@
 ;; Essentials: Evil / Which-key / General / avy / ivy
 (use-package s)
 
-(load "~/.emacs.d/evil-config.el")
+(load (portacle-path "config/config.d/evil-config.el"))
 
 (use-package ivy
   :config
@@ -127,17 +127,18 @@
 
 (use-package load-env-vars)
 
-(when (eql system-type 'windows-nt)
-  (load-env-vars "~/.emacs.d/work.env")) ;; Need to detect which windows host?
+(let ((env-vars-file (portacle-path "config/config.d/work.env")))
+  (when (and (eql system-type 'windows-nt) (file-exists-p env-vars-file))
+    (load-env-vars env-vars-file))) ;; Need to detect which windows host?
 
 ;; Move to somewhere else?
-(use-package magit)
+;; (use-package magit)
 
 (use-package pdf-tools)
 
-(use-package company
-  :config
-  (add-hook 'after-init-hook 'global-company-mode))
+;; (use-package company
+;;   :config
+;;   (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package pandoc-mode)
 
@@ -145,7 +146,7 @@
   :config
   (global-page-break-lines-mode 1))
 
-(load "~/.emacs.d/info+.el")
+(load (portacle-path "config/config.d/info+.el"))
 
 ;; Configure iBuffer
 
@@ -198,15 +199,15 @@
 
 ;; Paredit
 
-(use-package paredit
-  :init (progn
-          (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-          (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-          (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-          (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-          (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-          (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-          (add-hook 'scheme-mode-hook           #'enable-paredit-mode)))
+;; (use-package paredit
+;;   :init (progn
+;;           (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+;;           (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+;;           (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+;;           (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+;;           (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+;;           (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+;;           (add-hook 'scheme-mode-hook           #'enable-paredit-mode)))
 
 ;; Nano
 
@@ -217,17 +218,17 @@
 
 ;; Configuring the rest
 
-(load "~/.emacs.d/user.el")
-(load "~/.emacs.d/common-lisp.el")
-(load "~/.emacs.d/ein-config.el")
-(load "~/.emacs.d/org-config.el")
-(load "~/.emacs.d/elisp-config.el")
-(load "~/.emacs.d/nano.el")
+(load (portacle-path "config/config.d/user.el"))
+(load (portacle-path "config/config.d/common-lisp.el"))
+(load (portacle-path "config/config.d/ein-config.el"))
+(load (portacle-path "config/config.d/org-config.el"))
+(load (portacle-path "config/config.d/elisp-config.el"))
+(load (portacle-path "config/config.d/nano.el"))
 
 ;; Fix company annoyance
 (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
 
 ;; Customizations (make this machine dependent)
 
-(setq custom-file "~/.emacs.d/customizations.el")
+(setq custom-file (portacle-path "config/config.d/customizations.el"))
 (load custom-file)

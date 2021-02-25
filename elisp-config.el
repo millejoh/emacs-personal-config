@@ -1,6 +1,6 @@
 ;;; Making editing Elisp more like using Slime, from Hemlut Eller ;;;
 
-(load "~/.emacs.d/list-callers.el")
+(load (portacle-path "config/config.d/list-callers.el"))
 
 (defun elisp-disassemble (function)
   (interactive (list (function-called-at-point)))
