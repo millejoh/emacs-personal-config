@@ -7,7 +7,23 @@
 
 
 ;; Define better keymaps
-(use-package sly)
+(general-define-key :keymaps 'sly-mode-map
+                    :states 'normal
+                    :prefix ","
+
+                    "." 'sly-edit-definition
+                    "," 'sly-pop-find-definition-stack
+                    "?" 'sly-edit-uses
+                    "dd" 'sly-disassemble-symbol
+                    "dm" 'sly-macroexpand-all
+                    "z" 'sly-mrepl
+                    "E" 'sly-edit-value
+                    "I" 'sly-inspect
+                    "hf" 'sly-describe-function
+                    "hs" 'sly-describe-symbol
+                    "hp" 'sly-apropos-package
+                    "hz" 'sly-apropos-all
+                    "hH" 'common-lisp-hyperspec)
 
 (general-define-key :keymaps 'sly-inspector-mode-map
                     :states 'normal

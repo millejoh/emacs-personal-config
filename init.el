@@ -134,7 +134,17 @@
 ;; Move to somewhere else?
 ;; (use-package magit)
 
+(use-package ibuffer-projectile
+    :config
+  (add-hook 'ibuffer-hook
+            (lambda ()
+              (ibuffer-projectile-set-filter-groups)
+              (unless (eq ibuffer-sorting-mode 'alphabetic)
+                (ibuffer-do-sort-by-alphabetic)))))
+
 (use-package pdf-tools)
+
+(use-package markdown-mode)
 
 ;; (use-package company
 ;;   :config
