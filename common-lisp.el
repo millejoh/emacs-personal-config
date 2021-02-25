@@ -5,14 +5,16 @@
 ;;;
 
 
-;; Portacle
-;;; (setq inferior-lisp-program nil)
-
-;;(add-to-list 'load-path "~/.emacs.d/portacle")
-
-;; (if (locate-library "portacle")
-;;     (load-library "portacle")
-;;     (display-warning :warning "Basic Portacle scripts are not present."))
+(unless (locate-library "portacle")
+  (use-package 'sly
+      :config
+    (setq sly-auto-select-connection 'always)
+    (setq sly-kill-without-query-p t)
+    (setq sly-description-autofocus t) 
+    (setq sly-inhibit-pipelining nil)
+    (setq sly-load-failed-fasl 'always)
+    (setq sly-ignore-protocol-mismatches t)
+    (add-hook 'sly-mrepl-mode-hook 'electric-pair-local-mode)))
 
 ;; Define better keymaps
 (general-define-key :keymaps 'sly-mode-map

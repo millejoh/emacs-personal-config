@@ -37,10 +37,20 @@
   :config
   (edit-server-start))
 
+;; Simulate portacle if it isn't present
+
+(defun config-path (path)
+  (if (locate-library "portacle")
+      (portacle-path (concat "config/config.d/" path))
+    (concat "~/.emacs.d/" path)))
+
+(if (locate-library "portacle")
+    (config-path "portacle-support.el"))
+
 ;; Essentials: Evil / Which-key / General / avy / ivy
 (use-package s)
 
-(load (portacle-path "config/config.d/evil-config.el"))
+(load (config-path "evil-config.el"))
 
 (use-package ivy
   :config
@@ -127,7 +137,7 @@
 
 (use-package load-env-vars)
 
-(let ((env-vars-file (portacle-path "config/config.d/work.env")))
+(let ((env-vars-file (config-path "work.env")))
   (when (and (eql system-type 'windows-nt) (file-exists-p env-vars-file))
     (load-env-vars env-vars-file))) ;; Need to detect which windows host?
 
@@ -156,7 +166,7 @@
   :config
   (global-page-break-lines-mode 1))
 
-(load (portacle-path "config/config.d/info+.el"))
+(load (config-path "info+.el"))
 
 ;; Yasnippets
 
@@ -190,17 +200,17 @@
 
 ;; Configuring the rest
 
-(load (portacle-path "config/config.d/user.el"))
-(load (portacle-path "config/config.d/common-lisp.el"))
-(load (portacle-path "config/config.d/ein-config.el"))
-(load (portacle-path "config/config.d/org-config.el"))
-(load (portacle-path "config/config.d/elisp-config.el"))
-(load (portacle-path "config/config.d/nano.el"))
+(load (config-path "user.el"))
+(load (config-path "common-lisp.el"))
+(load (config-path "ein-config.el"))
+(load (config-path "org-config.el"))
+(load (config-path "elisp-config.el"))
+(load (config-path "nano.el"))
 
 ;; Fix company annoyance
 (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
 
 ;; Customizations (make this machine dependent)
 
-(setq custom-file (portacle-path "config/config.d/customizations.el"))
+(setq custom-file (config-path "customizations.el"))
 (load custom-file)
