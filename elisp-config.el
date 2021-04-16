@@ -1,6 +1,6 @@
 ;;; Making editing Elisp more like using Slime, from Hemlut Eller ;;;
 
-(load (portacle-path "config/config.d/list-callers.el"))
+(load (config-path "list-callers.el"))
 
 (defun elisp-disassemble (function)
   (interactive (list (function-called-at-point)))
@@ -68,6 +68,7 @@
   '(((kbd "C-c d")   'elisp-disassemble)
     ((kbd "C-c m")   'elisp-macroexpand)
     ((kbd "C-c M")   'elisp-macroexpand-all)
+    ((kbd "C-c C-d") 'edebug-defun)
     ((kbd "C-c C-c") 'compile-defun)
     ((kbd "C-c C-k") 'elisp-bytecompile-and-load)
     ((kbd "C-c C-l") 'load-file)

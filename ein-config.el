@@ -12,6 +12,7 @@
   (:states 'normal
 	   :keymaps 'ein:notebook-mode-map
 	   :prefix ","
+           "RET" 'ein:worksheet-execute-cell-and-goto-next-km
 	   "j" 'ein:worksheet-goto-next-input-km
            "k" 'ein:worksheet-goto-prev-input-km
            "J" 'ein:worksheet-move-cell-down-km

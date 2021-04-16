@@ -6,7 +6,7 @@
 
 
 (unless (locate-library "portacle")
-  (use-package 'sly
+  (use-package sly
       :config
     (setq sly-auto-select-connection 'always)
     (setq sly-kill-without-query-p t)
@@ -15,6 +15,18 @@
     (setq sly-load-failed-fasl 'always)
     (setq sly-ignore-protocol-mismatches t)
     (add-hook 'sly-mrepl-mode-hook 'electric-pair-local-mode)))
+
+;; Paredit
+;; (load (config-path "paredit.el"))
+(use-package paredit
+  :init (progn
+          (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+          (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+          (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+          (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+          (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+          (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+          (add-hook 'scheme-mode-hook           #'enable-paredit-mode)))
 
 ;; Define better keymaps
 (general-define-key :keymaps 'sly-mode-map

@@ -17,6 +17,10 @@
 
 (use-package ox-pandoc)
 
+(use-package ox-reveal
+  :config
+  (setq org-reveal-root "file:///c:/Users/E341194/msys2/home/E341194/code/reveal.js"))
+
 (use-package evil-org)
 
 (require 'ob-ein)

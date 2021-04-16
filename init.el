@@ -80,7 +80,7 @@
                       "b" '(:ignore t :which-key "windows")
                       "bb" 'ivy-switch-buffer
                       "bI" 'ibuffer
-                      "bd" 'kill-buffer
+                      "bd" 'kill-current-buffer
 
                       ;; File Commands
                       "fs" 'save-buffer
@@ -142,7 +142,7 @@
     (load-env-vars env-vars-file))) ;; Need to detect which windows host?
 
 ;; Move to somewhere else?
-;; (use-package magit)
+(use-package magit)
 
 (use-package ibuffer-projectile
     :config
@@ -156,9 +156,9 @@
 
 (use-package markdown-mode)
 
-;; (use-package company
-;;   :config
-;;   (add-hook 'after-init-hook 'global-company-mode))
+(use-package company
+  :config
+  (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package pandoc-mode)
 
@@ -179,24 +179,14 @@
   (add-hook 'org-mode #'yas-minor-mode)
   (add-hook 'writer-mode #'yas-minor-mode))
 
-;; Paredit
-
-;; (use-package paredit
-;;   :init (progn
-;;           (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-;;           (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-;;           (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-;;           (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-;;           (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-;;           (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-;;           (add-hook 'scheme-mode-hook           #'enable-paredit-mode)))
 
 ;; Nano
 
-(straight-use-package 
-  '(nano-emacs :type git :host github :repo "rougier/nano-emacs"))
+;; (straight-use-package 
+;;   '(nano-emacs :type git :host github :repo "rougier/nano-emacs"))
+(straight-use-package
+ '(elegant-emacs :type git :host github :repo "rougier/elegant-emacs"))
 
-(setq nano-use-light-theme t)
 
 ;; Configuring the rest
 
@@ -205,10 +195,14 @@
 (load (config-path "ein-config.el"))
 (load (config-path "org-config.el"))
 (load (config-path "elisp-config.el"))
-(load (config-path "nano.el"))
+;; (load (config-path "nano.el"))
 
 ;; Fix company annoyance
 (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
+
+(require 'sanity)
+(require 'elegance)
+
 
 ;; Customizations (make this machine dependent)
 
