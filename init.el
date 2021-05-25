@@ -8,7 +8,7 @@
 (setq visual-bell t)
 
 (show-paren-mode 1)
-
+(defvar comp-deferred-compilation-deny-list nil)
 (setq inhibit-compacting-font-caches t)
 (when (boundp 'w32-pipe-read-delay)
   (setq 32-pipe-read-delay 0))
@@ -17,6 +17,7 @@
 
 (defvar bootstrap-version)
 (defvar straight-use-package-by-default t)
+
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
       (bootstrap-version 5))

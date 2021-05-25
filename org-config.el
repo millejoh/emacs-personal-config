@@ -6,9 +6,8 @@
 ;;;
 
 
-
 (use-package org
-  :straight org-plus-contrib
+  :straight org ;; org-plus-contrib
   :config
   (global-set-key (kbd "C-c l") 'org-store-link)
   (global-set-key (kbd "C-c a") 'org-agenda)
