@@ -143,6 +143,9 @@
     (load-env-vars env-vars-file))) ;; Need to detect which windows host?
 
 ;; Move to somewhere else?
+(use-package visual-fill-column
+  :config (add-hook 'visual-line-mode-hook #'visual-fill-column-mode))
+
 (use-package magit)
 
 (use-package ibuffer-projectile
@@ -188,7 +191,6 @@
 (straight-use-package
  '(elegant-emacs :type git :host github :repo "rougier/elegant-emacs"))
 
-
 ;; Configuring the rest
 
 (load (config-path "user.el"))
@@ -203,7 +205,6 @@
 
 (require 'sanity)
 (require 'elegance)
-
 
 ;; Customizations (make this machine dependent)
 
