@@ -78,7 +78,7 @@
                       "SPC" '(counsel-M-x :which-key "M-x")
                       
                       ;; Buffer Commands
-                      "b" '(:ignore t :which-key "windows")
+                      "b" '(:ignore t :which-key "buffers")
                       "bb" 'ivy-switch-buffer
                       "bI" 'ibuffer
                       "bd" 'kill-current-buffer
@@ -86,6 +86,7 @@
                       ;; File Commands
                       "fs" 'save-buffer
                       "ff" 'find-file
+
                       ;; Window Commands
                       "w" '(:ignore t :which-key "windows")
                       "wh" 'evil-window-left
@@ -93,7 +94,16 @@
                       "wk" 'evil-window-up
                       "wj" 'evil-window-down
                       "w/" 'split-window-horizontally
-                      
+
+                      ;; Frames
+                      "F" '(:ignore t :which-key "Frames")
+                      "F0" 'delete-frame
+                      "F1" 'delete-other-frames
+                      "F2" 'make-frame-command
+                      "Fb" 'switch-to-buffer-other-frame
+                      "Ff" 'find-file-other-frame
+                      "Fd" 'dired-other-frame
+
                       ;; Toggles
                       "T" '(:ignore t :which-key "UI Toggles/Themes")
                       "TF" 'toggle-frame-fullscreen
@@ -170,6 +180,8 @@
   :config
   (global-page-break-lines-mode 1))
 
+(use-package ranger)
+
 (load (config-path "info+.el"))
 
 ;; Yasnippets
@@ -182,7 +194,6 @@
   (add-hook 'prog-mode-hook #'yas-minor-mode)
   (add-hook 'org-mode #'yas-minor-mode)
   (add-hook 'writer-mode #'yas-minor-mode))
-
 
 ;; Nano
 

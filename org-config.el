@@ -5,7 +5,6 @@
 ;;; Author: John M. Miller <millejoh@mac.com>
 ;;;
 
-
 (use-package org
   :straight org ;; org-plus-contrib
   :config
@@ -13,8 +12,9 @@
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c c") 'org-capture))
 
-
 (use-package ox-pandoc)
+
+(use-package ox-rst)
 
 (use-package ox-reveal
   :config
