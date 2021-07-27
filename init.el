@@ -158,6 +158,9 @@
 
 (use-package magit)
 
+(use-package forge
+  :after magit)
+
 (use-package ibuffer-projectile
     :config
   (add-hook 'ibuffer-hook
@@ -166,7 +169,12 @@
               (unless (eq ibuffer-sorting-mode 'alphabetic)
                 (ibuffer-do-sort-by-alphabetic)))))
 
-(use-package pdf-tools)
+(use-package pdf-tools
+  :straight (pdf-tools :type git :host github :repo "vedang/pdf-tools"))
+
+(use-package elpy
+  :ensure t
+  :init (elpy-enable))
 
 (use-package markdown-mode)
 
