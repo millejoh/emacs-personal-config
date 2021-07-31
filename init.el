@@ -148,6 +148,7 @@
 
 (use-package load-env-vars)
 
+
 (let ((env-vars-file (config-path "work.env")))
   (when (and (eql system-type 'windows-nt) (file-exists-p env-vars-file))
     (load-env-vars env-vars-file))) ;; Need to detect which windows host?
@@ -158,6 +159,9 @@
 
 (use-package magit)
 
+(use-package forge
+  :after magit)
+
 (use-package ibuffer-projectile
     :config
   (add-hook 'ibuffer-hook
@@ -166,7 +170,12 @@
               (unless (eq ibuffer-sorting-mode 'alphabetic)
                 (ibuffer-do-sort-by-alphabetic)))))
 
-(use-package pdf-tools)
+(use-package pdf-tools
+  :straight (pdf-tools :type git :host github :repo "vedang/pdf-tools"))
+
+(use-package elpy
+  :ensure t
+  :init (elpy-enable))
 
 (use-package markdown-mode)
 
@@ -182,6 +191,12 @@
 
 (use-package ranger)
 
+(use-package dired-sort-menu)
+(use-package dired-sort-menu-plus
+  :defer t
+  :straight (dired-sort-menu-plus :type git :host github :repo "emacsmirror/dired-sort-menu-plus"))
+
+(require 'dired-sort-menu+)
 (load (config-path "info+.el"))
 
 ;; Yasnippets
