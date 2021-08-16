@@ -12,6 +12,8 @@
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c c") 'org-capture))
 
+(setq org-roam-v2-ack t)
+
 (use-package org-roam)
 
 (use-package ox-pandoc)

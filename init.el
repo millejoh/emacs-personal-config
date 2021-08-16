@@ -45,11 +45,15 @@
       (portacle-path (concat "config/config.d/" path))
     (concat "~/.emacs.d/" path)))
 
+
 (if (locate-library "portacle")
+
+
     (config-path "portacle-support.el"))
 
 ;; Essentials: Evil / Which-key / General / avy / ivy
 (use-package s)
+(use-package yaml-mode)
 
 (load (config-path "evil-config.el"))
 
@@ -141,6 +145,7 @@
 (use-package which-key
   :init
   (setq which-key-separator " ")
+
   (setq which-key-prefix-prefix "+")
   :config
   (which-key-mode 1)
@@ -156,6 +161,8 @@
 ;; Move to somewhere else?
 (use-package visual-fill-column
   :config (add-hook 'visual-line-mode-hook #'visual-fill-column-mode))
+
+(use-package magit-section)
 
 (use-package magit)
 
@@ -210,12 +217,7 @@
   (add-hook 'org-mode #'yas-minor-mode)
   (add-hook 'writer-mode #'yas-minor-mode))
 
-;; Nano
 
-;; (straight-use-package 
-;;   '(nano-emacs :type git :host github :repo "rougier/nano-emacs"))
-(straight-use-package
- '(elegant-emacs :type git :host github :repo "rougier/elegant-emacs"))
 
 ;; Configuring the rest
 
@@ -229,10 +231,26 @@
 ;; Fix company annoyance
 (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
 
-(require 'sanity)
-(require 'elegance)
+;; Nano
+(use-package nano-theme
+  :straight (nano-theme :type git :host github
+                                   :repo "rougier/nano-theme"))
+
+(use-package nano-emacs
+  :defer t
+  :straight (nano-emacs :type git :host github :repo "rougier/nano-emacs")
+  :config
+  (setq nano-font-size 12)
+  :init
+  (require 'nano-layout)
+  (require 'nano-faces)
+  (require 'nano-theme-dark)
+  (require 'nano-theme)
+  (nano-dark)
+  (require 'nano-modeline))
 
 ;; Customizations (make this machine dependent)
 
 (setq custom-file (config-path "customizations.el"))
 (load custom-file)
+

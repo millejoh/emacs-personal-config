@@ -2,6 +2,11 @@
 
 (load (config-path "list-callers.el"))
 
+(use-package inspector
+  :straight (emacs-inspector :type git
+			   :host github
+			   :repo "mmontone/emacs-inspector"))
+
 (defun elisp-disassemble (function)
   (interactive (list (function-called-at-point)))
   (disassemble function))
