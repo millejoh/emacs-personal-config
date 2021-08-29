@@ -139,6 +139,16 @@
                       "gs" 'magit-status
                       "gc" 'magit-clone
 
+		      ;; org-roam
+		      "o" '(:ignore t :which-key "Org")
+		      "on" '(:ignore t :which-key "Org Roam")
+		      "ona" 'org-roam-alias-add
+		      "oni" 'org-roam-node-insert
+		      "onf" 'org-roam-node-find
+		      "onc" 'org-roam-capture
+		      "onb" 'org-roam-buffer-toggle
+		      "onB" 'org-roam-buffer-display-dedicated
+
 		      ;;
 		      "H h"  '(i-ching-insert-hexagram)))
 
