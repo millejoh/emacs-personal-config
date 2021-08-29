@@ -47,9 +47,12 @@
 
 
 (if (locate-library "portacle")
-
-
     (config-path "portacle-support.el"))
+
+;; Customizations (make this machine dependent)
+
+(setq custom-file (config-path "customizations.el"))
+(load custom-file)
 
 ;; Essentials: Evil / Which-key / General / avy / ivy
 (use-package s)
@@ -148,6 +151,7 @@
 		      "onc" 'org-roam-capture
 		      "onb" 'org-roam-buffer-toggle
 		      "onB" 'org-roam-buffer-display-dedicated
+		      "ond" '(:ignore t :which-key "Org Roam Dailies")
 
 		      ;;
 		      "H h"  '(i-ching-insert-hexagram)))
@@ -162,7 +166,6 @@
   (which-key-setup-minibuffer)) ;; This looks better in nano
 
 (use-package load-env-vars)
-
 
 (let ((env-vars-file (config-path "work.env")))
   (when (and (eql system-type 'windows-nt) (file-exists-p env-vars-file))
@@ -227,8 +230,6 @@
   (add-hook 'org-mode #'yas-minor-mode)
   (add-hook 'writer-mode #'yas-minor-mode))
 
-
-
 ;; Configuring the rest
 
 (load (config-path "user.el"))
@@ -236,12 +237,13 @@
 (load (config-path "ein-config.el"))
 (load (config-path "org-config.el"))
 (load (config-path "elisp-config.el"))
-;; (load (config-path "nano.el"))
 
 ;; Fix company annoyance
 (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
 
 ;; Nano
+(use-package mini-frame)
+
 (use-package nano-theme
   :straight (nano-theme :type git :host github
                                    :repo "rougier/nano-theme"))
@@ -250,17 +252,16 @@
   :defer t
   :straight (nano-emacs :type git :host github :repo "rougier/nano-emacs")
   :config
+  (setq nano-font-family-monospaced "Roboto Mono")
   (setq nano-font-size 12)
   :init
   (require 'nano-layout)
   (require 'nano-faces)
   (require 'nano-theme-dark)
+  (require 'nano-theme-light)
   (require 'nano-theme)
-  (nano-dark)
-  (require 'nano-modeline))
+  (nano-light)
+  (require 'nano-modeline)
+  (require 'nano-compact))
 
-;; Customizations (make this machine dependent)
-
-(setq custom-file (config-path "customizations.el"))
-(load custom-file)
 
