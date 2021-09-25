@@ -54,3 +54,6 @@
 (package! symex)
 
 (package! ibuffer-projectile)
+
+(package! emacs-inspector
+  :recipe (:type git :host github :repo "mmontone/emacs-inspector"))

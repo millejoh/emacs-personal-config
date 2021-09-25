@@ -53,6 +53,8 @@
                 (ibuffer-do-sort-by-alphabetic)))))
 
 
+;;; Custom leader maps
+;;;
 (map! :leader :desc "M-x" "SPC" 'execute-extended-command
       :leader :desc "Jump/join/split" "j" '(:ignore t :which-key "jump/join/split")
       :leader :desc "Jump to line" "jl" 'avy-goto-line
@@ -60,6 +62,12 @@
       :leader :desc "Jumpt to char" "jc" 'avy-goto-char
       :leader :desc "Close window or workspace" "w0" '+workspace/close-window-or-workspace)
 
+;;; Find a way to make this common to my custom-emacs config, as of the moment
+;;; there is too much duplication.
+(defun config-path (path)
+  (if (locate-library "portacle")
+      (portacle-path (concat "config/config.d/" path))
+    (concat "~/custom-emacs/" path)))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
