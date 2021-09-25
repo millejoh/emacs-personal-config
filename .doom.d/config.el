@@ -25,7 +25,13 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-opera)
+
+;; Other themes that seem to work:
+;;  doom-flatwhite
+;;  doom-palenite
+;;  doom-plaindark
+;;  doom-opera
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -37,6 +43,15 @@
 
 (use-package! avy
   :commands (avy-goto-word-1))
+
+(use-package! ibuffer-projectile
+    :config
+  (add-hook 'ibuffer-hook
+            (lambda ()
+              (ibuffer-projectile-set-filter-groups)
+              (unless (eq ibuffer-sorting-mode 'alphabetic)
+                (ibuffer-do-sort-by-alphabetic)))))
+
 
 (map! :leader :desc "M-x" "SPC" 'execute-extended-command
       :leader :desc "Jump/join/split" "j" '(:ignore t :which-key "jump/join/split")
