@@ -108,10 +108,14 @@
  'org-babel-load-languages
  `((emacs-lisp . t)
    (lisp . t)
-   (python . t)
-   (ein . t)))
+   (python .t)))
 
-;;(load "~/custom-emacs/.doom.d/elisp.el")
+(after! ein
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   `((ein . t))))
+
+(load "~/custom-emacs/.doom.d/elisp.el")
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
