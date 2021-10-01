@@ -12,32 +12,32 @@
   (:states 'normal
 	   :keymaps 'ein:notebook-mode-map
 	   :prefix ","
-           "RET" 'ein:worksheet-execute-cell-and-goto-next-km
-	   "j" 'ein:worksheet-goto-next-input-km
-           "k" 'ein:worksheet-goto-prev-input-km
-           "J" 'ein:worksheet-move-cell-down-km
-           "K" 'ein:worksheet-move-cell-up-km
-           "e" 'ein:worksheet-toggle-output-km
-           "d" 'ein:worksheet-kill-cell-km
-           "y" 'ein:worksheet-copy-cell-km
-           "p" 'ein:worksheet-yank-cell-km
-           "m" 'ein:worksheet-merge-cell-km
-           "s" 'ein:worksheet-split-cell-at-point-km
-           "o" 'ein:worksheet-insert-cell-below-km
-           "O" 'ein:worksheet-insert-cell-above-km
-           "t" 'ein:worksheet-toggle-cell-type-km
-           "u" 'ein:worksheet-toggle-cell-type-km ;; For historical reasons.
-           "C-m" 'ein:worksheet-execute-cell-km
-           "l" 'ein:worksheet-clear-output-km
-           "L" 'ein:worksheet-clear-all-output-km
-           "fs" 'ein:notebook-save-notebook-command-km
-           "fc" 'ein:notebook-reconnect-session-command-km
-           "fr" 'ein:notebook-restart-session-command-km
-           "C-r" 'ein:notebook-rename-command-km
-           "x" 'ein:notebook-close-km
+           "RET" 'ein:worksheet-execute-cell-and-goto-next
+	   "j" 'ein:worksheet-goto-next-input
+           "k" 'ein:worksheet-goto-prev-input
+           "J" 'ein:worksheet-move-cell-down
+           "K" 'ein:worksheet-move-cell-up
+           "e" 'ein:worksheet-toggle-output
+           "d" 'ein:worksheet-kill-cell
+           "y" 'ein:worksheet-copy-cell
+           "p" 'ein:worksheet-yank-cell
+           "m" 'ein:worksheet-merge-cell
+           "s" 'ein:worksheet-split-cell-at-point
+           "o" 'ein:worksheet-insert-cell-below
+           "O" 'ein:worksheet-insert-cell-above
+           "t" 'ein:worksheet-toggle-cell-type
+           "u" 'ein:worksheet-toggle-cell-type ;; For historical reasons.
+           "C-m" 'ein:worksheet-execute-cell
+           "l" 'ein:worksheet-clear-output
+           "L" 'ein:worksheet-clear-all-output
+           "fs" 'ein:notebook-save-notebook-command
+           "fc" 'ein:notebook-reconnect-session-command
+           "fr" 'ein:notebook-restart-session-command
+           "C-r" 'ein:notebook-rename-command
+           "x" 'ein:notebook-close
            "gg" 'ein:kernel-utils-jump-to-source-command
            "hh" 'ein:kernel-utils-request-tooltip-or-help
-           "z" 'ein:notebook-kernel-interrupt-command-km))
+           "z" 'ein:notebook-kernel-interrupt-command))
 
 (use-package pos-tip)
 

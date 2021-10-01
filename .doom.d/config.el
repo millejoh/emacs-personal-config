@@ -25,7 +25,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-opera)
+(setq doom-theme 'doom-nord)
 
 ;; Other themes that seem to work:
 ;;  doom-flatwhite
@@ -35,7 +35,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/Journal/")
+;; (setq org-directory "~/Journal/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -44,14 +44,49 @@
 (use-package! avy
   :commands (avy-goto-word-1))
 
-(use-package! ibuffer-projectile
-    :config
-  (add-hook 'ibuffer-hook
-            (lambda ()
-              (ibuffer-projectile-set-filter-groups)
-              (unless (eq ibuffer-sorting-mode 'alphabetic)
-                (ibuffer-do-sort-by-alphabetic)))))
+;; (use-package! ibuffer-projectile
+;;     :config
+;;   (add-hook 'ibuffer-hook
+;;             (lambda ()
+;;               (ibuffer-projectile-set-filter-groups)
+;;               (unless (eq ibuffer-sorting-mode 'alphabetic)
+;;                 (ibuffer-do-sort-by-alphabetic)))))
 
+(use-package! ein
+  :general
+  (:states 'normal
+	   :keymaps 'ein:notebook-mode-map
+	   :prefix ","
+           "RET" 'ein:worksheet-execute-cell-and-goto-next
+	   "j" 'ein:worksheet-goto-next-input
+           "k" 'ein:worksheet-goto-prev-input
+           "J" 'ein:worksheet-move-cell-down
+           "K" 'ein:worksheet-move-cell-up
+           "e" 'ein:worksheet-toggle-output
+           "d" 'ein:worksheet-kill-cell
+           "y" 'ein:worksheet-copy-cell
+           "p" 'ein:worksheet-yank-cell
+           "m" 'ein:worksheet-merge-cell
+           "s" 'ein:worksheet-split-cell-at-point
+           "o" 'ein:worksheet-insert-cell-below
+           "O" 'ein:worksheet-insert-cell-above
+           "t" 'ein:worksheet-toggle-cell-type
+           "u" 'ein:worksheet-toggle-cell-type ;; For historical reasons.
+           "C-m" 'ein:worksheet-execute-cell
+           "l" 'ein:worksheet-clear-output
+           "L" 'ein:worksheet-clear-all-output
+           "fs" 'ein:notebook-save-notebook-command
+           "fc" 'ein:notebook-reconnect-session-command
+           "fr" 'ein:notebook-restart-session-command
+           "C-r" 'ein:notebook-rename-command
+           "x" 'ein:notebook-close
+           "gg" 'ein:kernel-utils-jump-to-source-command
+           "hh" 'ein:kernel-utils-request-tooltip-or-help
+           "z" 'ein:notebook-kernel-interrupt-command))
+
+
+(setq +python-ipython-repl-args '("-i" "--simple-prompt" "--no-color-info"))
+(setq +python-jupyter-repl-args '("--simple-prompt"))
 
 ;;; Custom leader maps
 ;;;
@@ -68,6 +103,15 @@
   (if (locate-library "portacle")
       (portacle-path (concat "config/config.d/" path))
     (concat "~/custom-emacs/" path)))
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ `((emacs-lisp . t)
+   (lisp . t)
+   (python . t)
+   (ein . t)))
+
+;;(load "~/custom-emacs/.doom.d/elisp.el")
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

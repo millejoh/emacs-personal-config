@@ -4,7 +4,6 @@
 ;;; Author: John M. Miller <millejoh@mac.com>
 ;;;
 
-
 (unless (locate-library "portacle")
   (use-package sly
       :config
@@ -17,16 +16,22 @@
     (add-hook 'sly-mrepl-mode-hook 'electric-pair-local-mode)))
 
 ;; Paredit
-;; (load (config-path "paredit.el"))
-(use-package paredit
-  :init (progn
-          (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-          (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-          (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-          (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-          (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-          (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-          (add-hook 'scheme-mode-hook           #'enable-paredit-mode)))
+(defun init-paredit ()
+  (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+  (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+  (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+  (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+  (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+  (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+  (add-hook 'scheme-mode-hook           #'enable-paredit-mode))
+
+(if (string= (system-name) "TX92LT1JW0YT2")
+    (progn
+      (load (config-path "paredit.el"))
+      (init-paredit))
+  (use-package paredit
+    :init (init-paredit))) 
+          
 
 ;; Define better keymaps
 (general-define-key :keymaps 'sly-mode-map

@@ -51,7 +51,7 @@
 
 (package! avy)
 
-(package! symex)
+;;(package! symex)
 
 (package! ibuffer-projectile)
 

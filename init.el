@@ -4,6 +4,8 @@
 ;;; Author: John M. Miller <millejoh@mac.com>
 ;;;
 
+(defvar *my-config-directory* "~/custom-emacs/")
+
 (setq ring-bell-function 'ignore)
 (setq visual-bell t)
 
@@ -43,7 +45,7 @@
 (defun config-path (path)
   (if (locate-library "portacle")
       (portacle-path (concat "config/config.d/" path))
-    (concat "~/.emacs.d/" path)))
+    (concat *my-config-directory* path)))
 
 
 (if (locate-library "portacle")
@@ -143,15 +145,20 @@
                       "gc" 'magit-clone
 
 		      ;; org-roam
-		      "o" '(:ignore t :which-key "Org")
-		      "on" '(:ignore t :which-key "Org Roam")
-		      "ona" 'org-roam-alias-add
-		      "oni" 'org-roam-node-insert
-		      "onf" 'org-roam-node-find
-		      "onc" 'org-roam-capture
-		      "onb" 'org-roam-buffer-toggle
-		      "onB" 'org-roam-buffer-display-dedicated
-		      "ond" '(:ignore t :which-key "Org Roam Dailies")
+		      "n" '(:ignore t :which-key "Notes")
+		      "nr" '(:ignore t :which-key "Roam")
+		      "nra" 'org-roam-alias-add
+		      "nri" 'org-roam-node-insert
+		      "nrf" 'org-roam-node-find
+		      "nrc" 'org-roam-capture
+		      "nrC" 'org-roam-dailies-capture-today
+		      "nrb" 'org-roam-buffer-toggle
+		      "nrB" 'org-roam-buffer-display-dedicated
+		      "nrd" '(:ignore t :which-key "Dailies")
+		      "nrdt" 'org-roam-dailies-goto-today
+		      "nrdd" 'org-roam-dailies-goto-date
+		      "nrdm" 'org-roam-dailies-goto-tomorrow
+		      "nrdy" 'org-roam-dailies-goto-yesterday
 
 		      ;;
 		      "H h"  '(i-ching-insert-hexagram)))
@@ -260,8 +267,9 @@
   (require 'nano-theme-dark)
   (require 'nano-theme-light)
   (require 'nano-theme)
-  (nano-light)
+  (nano-dark)
   (require 'nano-modeline)
-  (require 'nano-compact))
+  ;; (require 'nano-compact)
+  )		
 
 

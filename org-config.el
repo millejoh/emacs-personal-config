@@ -8,6 +8,7 @@
 (use-package org
   :straight org ;; org-plus-contrib
   :config
+  (evil-define-key 'normal org-mode-map (kbd "<tab>") #'org-cycle)
   (global-set-key (kbd "C-c l") 'org-store-link)
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c c") 'org-capture))
@@ -17,7 +18,7 @@
   :init
   (setq org-roam-v2-ack t)
   :config
-  (org-roam-setup)) 
+  (org-roam-db-autosync-mode)) 
 
 (use-package ox-pandoc)
 
