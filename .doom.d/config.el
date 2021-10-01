@@ -44,14 +44,6 @@
 (use-package! avy
   :commands (avy-goto-word-1))
 
-;; (use-package! ibuffer-projectile
-;;     :config
-;;   (add-hook 'ibuffer-hook
-;;             (lambda ()
-;;               (ibuffer-projectile-set-filter-groups)
-;;               (unless (eq ibuffer-sorting-mode 'alphabetic)
-;;                 (ibuffer-do-sort-by-alphabetic)))))
-
 (use-package! ein
   :general
   (:states 'normal
