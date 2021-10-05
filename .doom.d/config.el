@@ -80,6 +80,40 @@
            "hh" 'ein:kernel-utils-request-tooltip-or-help
            "z" 'ein:notebook-kernel-interrupt-command))
 
+(use-package! ein-kernel-utils
+  :config
+  (add-hook 'ein:notebook-mode-hook #'(lambda () (add-to-list 'company-backends 'ein:company-backend)))
+  (add-hook 'ein:notebook-mode-hook
+            #'(lambda ()
+                (when (featurep 'eldoc)
+                  (add-function :before-until (local 'eldoc-documentation-function)
+                                #'ein:completer-get-eldoc-signature)
+                  (eldoc-mode))))
+  (add-hook 'ein:on-kernel-connect-functions #'(lambda (kernel)
+                                                 (ein:kernel-utils-load-safely kernel)))
+  (add-hook 'org-src-mode-hook #'ein:on-edit-source-block)
+  (add-hook 'hy-mode-hook
+	    (lambda ()
+	      (define-key python-mode-map "\C-c." 'ein:kernel-utils-jump-to-source)
+	      (define-key python-mode-map "\C-c\C-h" 'ein:kernel-utils-request-tooltip-or-help)
+	      (define-key python-mode-map "\C-c\C-c" 'ein:connect-run-or-eval-buffer)
+	      (define-key python-mode-map "\C-c\C-l" 'ein:connect-reload-buffer)
+	      (define-key python-mode-map "\C-c\C-r" 'ein:connect-eval-region)
+	      (define-key python-mode-map (kbd "C-:") 'ein:shared-output-eval-string)
+	      (define-key python-mode-map "\C-c\C-z" 'ein:connect-pop-to-notebook)
+	      (define-key python-mode-map "\C-c\C-x" 'ein:tb-show)
+	      (define-key python-mode-map (kbd "C-c C-/") 'ein:notebook-scratchsheet-open)))
+  (add-hook 'python-mode-hook
+            (lambda ()
+              (define-key python-mode-map "\C-c." 'ein:kernel-utils-jump-to-source)
+              (define-key python-mode-map "\C-c\C-h" 'ein:kernel-utils-request-tooltip-or-help)
+              (define-key python-mode-map "\C-c\C-c" 'ein:connect-run-or-eval-buffer)
+              (define-key python-mode-map "\C-c\C-l" 'ein:connect-reload-buffer)
+              (define-key python-mode-map "\C-c\C-r" 'ein:connect-eval-region)
+              (define-key python-mode-map (kbd "C-:") 'ein:shared-output-eval-string)
+              (define-key python-mode-map "\C-c\C-z" 'ein:connect-pop-to-notebook)
+              (define-key python-mode-map "\C-c\C-x" 'ein:tb-show)
+              (define-key python-mode-map (kbd "C-c C-/") 'ein:notebook-scratchsheet-open))))
 
 (setq +python-ipython-repl-args '("-i" "--simple-prompt" "--no-color-info"))
 (setq +python-jupyter-repl-args '("--simple-prompt"))
@@ -110,6 +144,8 @@
   (org-babel-do-load-languages
    'org-babel-load-languages
    `((ein . t))))
+
+(after! org (add-to-list 'org-modules 'ol-info))
 
 (load! "elisp.el")
 

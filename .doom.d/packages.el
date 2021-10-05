@@ -53,7 +53,11 @@
 (package! page-break-lines)
 
 (package! ein-kernel-utils
-  :recipe (:type git :host github :repo "millejoh/ein-kernel-utils"))
+  :recipe (:local-repo  "~/Projects/ein-kernel-utils"
+           :files ("*.el" "*.hy" "*.py")
+           :build (:not compile)))
+
+;;
 ;;
 ;;(package! symex)
 
