@@ -39,10 +39,14 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type nil)
 
 (use-package! avy
   :commands (avy-goto-word-1))
+
+(use-package! page-break-lines
+  :config
+  (global-page-break-lines-mode 1))
 
 (use-package! ein
   :general
@@ -107,7 +111,7 @@
    'org-babel-load-languages
    `((ein . t))))
 
-(load "~/custom-emacs/.doom.d/elisp.el")
+(load! "elisp.el")
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

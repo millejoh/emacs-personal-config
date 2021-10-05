@@ -50,7 +50,11 @@
 ;(unpin! t)
 
 (package! avy)
+(package! page-break-lines)
 
+(package! ein-kernel-utils
+  :recipe (:type git :host github :repo "millejoh/ein-kernel-utils"))
+;;
 ;;(package! symex)
 
 
