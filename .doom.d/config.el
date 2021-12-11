@@ -22,6 +22,8 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
+(setq doom-font (font-spec :family "Roboto Mono" :size 12))
+
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
@@ -103,7 +105,7 @@
 	      (define-key python-mode-map "\C-c\C-z" 'ein:connect-pop-to-notebook)
 	      (define-key python-mode-map "\C-c\C-x" 'ein:tb-show)
 	      (define-key python-mode-map (kbd "C-c C-/") 'ein:notebook-scratchsheet-open)))
-  (add-hook 'python-mode-hook
+(add-hook 'python-mode-hook
             (lambda ()
               (define-key python-mode-map "\C-c." 'ein:kernel-utils-jump-to-source)
               (define-key python-mode-map "\C-c\C-h" 'ein:kernel-utils-request-tooltip-or-help)
@@ -147,8 +149,27 @@
 
 (after! org (add-to-list 'org-modules 'ol-info))
 
+;; (remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
+
 (load! "elisp.el")
 
+(use-package! websocket
+    :after org-roam)
+
+(use-package! org-roam-ui
+    :after org-roam ;; or :after org
+;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+;;         a hookable mode anymore, you're advised to pick something yourself
+;;         if you don't care about startup time, use
+;;  :hook (after-init . org-roam-ui-mode)
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))
+
+(general-auto-unbind-keys :off)
+(remove-hook 'doom-after-init-modules-hook #'general-auto-unbind-keys)
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one

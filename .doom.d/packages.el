@@ -49,6 +49,10 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
+(unpin! org-roam)
+(package! websocket)
+(package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
+
 (package! avy)
 (package! page-break-lines)
 
@@ -56,11 +60,9 @@
   :recipe (:local-repo  "~/Projects/ein-kernel-utils"
            :files ("*.el" "*.hy" "*.py")
            :build (:not compile)))
-
 ;;
 ;;
 ;;(package! symex)
-
 
 (package! emacs-inspector
   :recipe (:type git :host github :repo "mmontone/emacs-inspector"))
