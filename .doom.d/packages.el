@@ -55,11 +55,25 @@
 
 (package! avy)
 (package! page-break-lines)
+(package! ein :recipe (:branch "old-master"))
 
+<<<<<<< HEAD
 (package! ein-kernel-utils
   :recipe (:local-repo  "~/Projects/ein-kernel-utils"
            :files ("*.el" "*.hy" "*.py")
            :build (:not compile)))
+=======
+
+;; (package! emacs-jupyter
+;;   :recipe (:type git :host github :repo "nnicandor/emacs-jupyter"))
+
+
+;; (package! ein-kernel-utils
+;;   :recipe (:local-repo  "~/Projects/ein-kernel-utils"
+;;            :files ("*.el" "*.hy" "*.py")
+;;            :build (:not compile)))
+
+>>>>>>> fc211cd5fdc1a83ff8b8170e747d0a222c09470f
 ;;
 ;;
 ;;(package! symex)

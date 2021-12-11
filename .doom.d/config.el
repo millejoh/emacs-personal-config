@@ -50,6 +50,21 @@
   :config
   (global-page-break-lines-mode 1))
 
+(after! ein-notebook
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   `((ein . t)))
+  (set-popup-rule! "^\\*ein:" :ignore t)
+
+  (defun +ein-buffer-p (buf)
+    (or (memq buf (ein:notebook-opened-buffers))
+        (memq buf (mapcar #'ein:notebooklist-get-buffer (ein:notebooklist-keys)))))
+  (add-to-list 'doom-real-buffer-functions #'+ein-buffer-p nil #'eq)
+  (map! :map ein:notebook-mode-map
+        "M-s" #'ein:notebook-save-notebook-command-km
+        :map ein:notebooklist-mode-map
+        "o" #'ein:notebook-open-km))
+
 (use-package! ein
   :general
   (:states 'normal
@@ -82,6 +97,7 @@
            "hh" 'ein:kernel-utils-request-tooltip-or-help
            "z" 'ein:notebook-kernel-interrupt-command))
 
+<<<<<<< HEAD
 (use-package! ein-kernel-utils
   :config
   (add-hook 'ein:notebook-mode-hook #'(lambda () (add-to-list 'company-backends 'ein:company-backend)))
@@ -116,6 +132,42 @@
               (define-key python-mode-map "\C-c\C-z" 'ein:connect-pop-to-notebook)
               (define-key python-mode-map "\C-c\C-x" 'ein:tb-show)
               (define-key python-mode-map (kbd "C-c C-/") 'ein:notebook-scratchsheet-open))))
+=======
+;; (use-package! ein-kernel-utils
+;;   :config
+;;   (add-hook 'ein:notebook-mode-hook #'(lambda () (add-to-list 'company-backends 'ein:company-backend)))
+;;   (add-hook 'ein:notebook-mode-hook
+;;             #'(lambda ()
+;;                 (when (featurep 'eldoc)
+;;                   (add-function :before-until (local 'eldoc-documentation-function)
+;;                                 #'ein:completer-get-eldoc-signature)
+;;                   (eldoc-mode))))
+;;   (add-hook 'ein:on-kernel-connect-functions #'(lambda (kernel)
+;;                                                  (ein:kernel-utils-load-safely kernel)))
+;;   (add-hook 'org-src-mode-hook #'ein:on-edit-source-block)
+;;   (add-hook 'hy-mode-hook
+;; 	    (lambda ()
+;; 	      (define-key python-mode-map "\C-c." 'ein:kernel-utils-jump-to-source)
+;; 	      (define-key python-mode-map "\C-c\C-h" 'ein:kernel-utils-request-tooltip-or-help)
+;; 	      (define-key python-mode-map "\C-c\C-c" 'ein:connect-run-or-eval-buffer)
+;; 	      (define-key python-mode-map "\C-c\C-l" 'ein:connect-reload-buffer)
+;; 	      (define-key python-mode-map "\C-c\C-r" 'ein:connect-eval-region)
+;; 	      (define-key python-mode-map (kbd "C-:") 'ein:shared-output-eval-string)
+;; 	      (define-key python-mode-map "\C-c\C-z" 'ein:connect-pop-to-notebook)
+;; 	      (define-key python-mode-map "\C-c\C-x" 'ein:tb-show)
+;; 	      (define-key python-mode-map (kbd "C-c C-/") 'ein:notebook-scratchsheet-open)))
+;;   (add-hook 'python-mode-hook
+;;             (lambda ()
+;;               (define-key python-mode-map "\C-c." 'ein:kernel-utils-jump-to-source)
+;;               (define-key python-mode-map "\C-c\C-h" 'ein:kernel-utils-request-tooltip-or-help)
+;;               (define-key python-mode-map "\C-c\C-c" 'ein:connect-run-or-eval-buffer)
+;;               (define-key python-mode-map "\C-c\C-l" 'ein:connect-reload-buffer)
+;;               (define-key python-mode-map "\C-c\C-r" 'ein:connect-eval-region)
+;;               (define-key python-mode-map (kbd "C-:") 'ein:shared-output-eval-string)
+;;               (define-key python-mode-map "\C-c\C-z" 'ein:connect-pop-to-notebook)
+;;               (define-key python-mode-map "\C-c\C-x" 'ein:tb-show)
+;;               (define-key python-mode-map (kbd "C-c C-/") 'ein:notebook-scratchsheet-open))))
+>>>>>>> fc211cd5fdc1a83ff8b8170e747d0a222c09470f
 
 (setq +python-ipython-repl-args '("-i" "--simple-prompt" "--no-color-info"))
 (setq +python-jupyter-repl-args '("--simple-prompt"))
@@ -141,11 +193,6 @@
  `((emacs-lisp . t)
    (lisp . t)
    (python .t)))
-
-(after! ein
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   `((ein . t))))
 
 (after! org (add-to-list 'org-modules 'ol-info))
 
