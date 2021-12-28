@@ -55,12 +55,17 @@
 
 (package! avy)
 (package! page-break-lines)
-(package! ein :recipe (:branch "old-master"))
+;; (package! ein :recipe (:branch "old-master"))
 
 
 ;; (package! emacs-jupyter
-;;   :recipe (:type git :host github :repo "nnicandor/emacs-jupyter"))
+;;    :recipe (:type git :host github :repo "nnicandor/emacs-jupyter"))
+;; (package! zmq)
+;; (package! websocket)
+;; (package! simple-httpd)
 
+;; (package! emacs-jupyter
+;;   :recipe (:local-repo "~/code/emacs-jupyter"))
 
 ;; (package! ein-kernel-utils
 ;;   :recipe (:local-repo  "~/Projects/ein-kernel-utils"

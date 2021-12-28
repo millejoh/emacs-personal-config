@@ -50,52 +50,57 @@
   :config
   (global-page-break-lines-mode 1))
 
-(after! ein-notebook
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   `((ein . t)))
-  (set-popup-rule! "^\\*ein:" :ignore t)
+(use-package! jupyter
+  :demand t
+  :after (:all org python))
 
-  (defun +ein-buffer-p (buf)
-    (or (memq buf (ein:notebook-opened-buffers))
-        (memq buf (mapcar #'ein:notebooklist-get-buffer (ein:notebooklist-keys)))))
-  (add-to-list 'doom-real-buffer-functions #'+ein-buffer-p nil #'eq)
-  (map! :map ein:notebook-mode-map
-        "M-s" #'ein:notebook-save-notebook-command-km
-        :map ein:notebooklist-mode-map
-        "o" #'ein:notebook-open-km))
 
-(use-package! ein
-  :general
-  (:states 'normal
-	   :keymaps 'ein:notebook-mode-map
-	   :prefix ","
-           "RET" 'ein:worksheet-execute-cell-and-goto-next
-	   "j" 'ein:worksheet-goto-next-input
-           "k" 'ein:worksheet-goto-prev-input
-           "J" 'ein:worksheet-move-cell-down
-           "K" 'ein:worksheet-move-cell-up
-           "e" 'ein:worksheet-toggle-output
-           "d" 'ein:worksheet-kill-cell
-           "y" 'ein:worksheet-copy-cell
-           "p" 'ein:worksheet-yank-cell
-           "m" 'ein:worksheet-merge-cell
-           "s" 'ein:worksheet-split-cell-at-point
-           "o" 'ein:worksheet-insert-cell-below
-           "O" 'ein:worksheet-insert-cell-above
-           "t" 'ein:worksheet-toggle-cell-type
-           "u" 'ein:worksheet-toggle-cell-type ;; For historical reasons.
-           "C-m" 'ein:worksheet-execute-cell
-           "l" 'ein:worksheet-clear-output
-           "L" 'ein:worksheet-clear-all-output
-           "fs" 'ein:notebook-save-notebook-command
-           "fc" 'ein:notebook-reconnect-session-command
-           "fr" 'ein:notebook-restart-session-command
-           "C-r" 'ein:notebook-rename-command
-           "x" 'ein:notebook-close
-           "gg" 'ein:kernel-utils-jump-to-source-command
-           "hh" 'ein:kernel-utils-request-tooltip-or-help
-           "z" 'ein:notebook-kernel-interrupt-command))
+;; (after! ein-notebook
+;;   (org-babel-do-load-languages
+;;    'org-babel-load-languages
+;;    `((ein . t)))
+;;   (set-popup-rule! "^\\*ein:" :ignore t)
+
+;;   (defun +ein-buffer-p (buf)
+;;     (or (memq buf (ein:notebook-opened-buffers))
+;;         (memq buf (mapcar #'ein:notebooklist-get-buffer (ein:notebooklist-keys)))))
+;;   (add-to-list 'doom-real-buffer-functions #'+ein-buffer-p nil #'eq)
+;;   (map! :map ein:notebook-mode-map
+;;         "M-s" #'ein:notebook-save-notebook-command-km
+;;         :map ein:notebooklist-mode-map
+;;         "o" #'ein:notebook-open-km))
+
+;; (use-package! ein
+;;   :general
+;;   (:states 'normal
+;; 	   :keymaps 'ein:notebook-mode-map
+;; 	   :prefix ","
+;;            "RET" 'ein:worksheet-execute-cell-and-goto-next
+;; 	   "j" 'ein:worksheet-goto-next-input
+;;            "k" 'ein:worksheet-goto-prev-input
+;;            "J" 'ein:worksheet-move-cell-down
+;;            "K" 'ein:worksheet-move-cell-up
+;;            "e" 'ein:worksheet-toggle-output
+;;            "d" 'ein:worksheet-kill-cell
+;;            "y" 'ein:worksheet-copy-cell
+;;            "p" 'ein:worksheet-yank-cell
+;;            "m" 'ein:worksheet-merge-cell
+;;            "s" 'ein:worksheet-split-cell-at-point
+;;            "o" 'ein:worksheet-insert-cell-below
+;;            "O" 'ein:worksheet-insert-cell-above
+;;            "t" 'ein:worksheet-toggle-cell-type
+;;            "u" 'ein:worksheet-toggle-cell-type ;; For historical reasons.
+;;            "C-m" 'ein:worksheet-execute-cell
+;;            "l" 'ein:worksheet-clear-output
+;;            "L" 'ein:worksheet-clear-all-output
+;;            "fs" 'ein:notebook-save-notebook-command
+;;            "fc" 'ein:notebook-reconnect-session-command
+;;            "fr" 'ein:notebook-restart-session-command
+;;            "C-r" 'ein:notebook-rename-command
+;;            "x" 'ein:notebook-close
+;;            "gg" 'ein:kernel-utils-jump-to-source-command
+;;            "hh" 'ein:kernel-utils-request-tooltip-or-help
+;;            "z" 'ein:notebook-kernel-interrupt-command))
 
 ;; (use-package! ein-kernel-utils
 ;;   :config
@@ -113,6 +118,7 @@
 ;; 	    (lambda ()
 ;; 	      (define-key python-mode-map "\C-c." 'ein:kernel-utils-jump-to-source)
 ;; 	      (define-key python-mode-map "\C-c\C-h" 'ein:kernel-utils-request-tooltip-or-help)
+
 ;; 	      (define-key python-mode-map "\C-c\C-c" 'ein:connect-run-or-eval-buffer)
 ;; 	      (define-key python-mode-map "\C-c\C-l" 'ein:connect-reload-buffer)
 ;; 	      (define-key python-mode-map "\C-c\C-r" 'ein:connect-eval-region)
@@ -155,7 +161,8 @@
  'org-babel-load-languages
  `((emacs-lisp . t)
    (lisp . t)
-   (python .t)))
+   (python . t)
+   (jupyter . t)))
 
 (after! org (add-to-list 'org-modules 'ol-info))
 
