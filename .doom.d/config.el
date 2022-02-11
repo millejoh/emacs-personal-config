@@ -54,6 +54,7 @@
   :demand t
   :after (:all org python))
 
+(use-package! edit-server)
 
 ;; (after! ein-notebook
 ;;   (org-babel-do-load-languages
@@ -187,6 +188,16 @@
 
 (general-auto-unbind-keys :off)
 (remove-hook 'doom-after-init-modules-hook #'general-auto-unbind-keys)
+
+;;;  Fix for emacs-jupyter per issue #366, though may still see issues since
+;; ansi-color--find-face has been renamed to ansi-color--face-vec-face in more recent
+;; versions of emacs.
+;;
+(defun display-ansi-colors ()
+  (ansi-color-apply-on-region (point-min) (point-max)))
+
+(add-hook 'org-babel-after-execute-hook #'display-ansi-colors)
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
