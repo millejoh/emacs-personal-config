@@ -22,7 +22,7 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
-(setq doom-font (font-spec :family "Roboto Mono" :size 12))
+(setq doom-font (font-spec :family "Hack" :size 14))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -30,6 +30,7 @@
 (setq doom-theme 'doom-nord)
 
 ;; Other themes that seem to work:
+;;  doom-nord
 ;;  doom-flatwhite
 ;;  doom-palenite
 ;;  doom-plaindark
@@ -56,88 +57,13 @@
 
 (use-package! edit-server)
 
-;; (after! ein-notebook
-;;   (org-babel-do-load-languages
-;;    'org-babel-load-languages
-;;    `((ein . t)))
-;;   (set-popup-rule! "^\\*ein:" :ignore t)
+(use-package! org-modern
+  :config (global-org-modern-mode))
 
-;;   (defun +ein-buffer-p (buf)
-;;     (or (memq buf (ein:notebook-opened-buffers))
-;;         (memq buf (mapcar #'ein:notebooklist-get-buffer (ein:notebooklist-keys)))))
-;;   (add-to-list 'doom-real-buffer-functions #'+ein-buffer-p nil #'eq)
-;;   (map! :map ein:notebook-mode-map
-;;         "M-s" #'ein:notebook-save-notebook-command-km
-;;         :map ein:notebooklist-mode-map
-;;         "o" #'ein:notebook-open-km))
-
-;; (use-package! ein
-;;   :general
-;;   (:states 'normal
-;; 	   :keymaps 'ein:notebook-mode-map
-;; 	   :prefix ","
-;;            "RET" 'ein:worksheet-execute-cell-and-goto-next
-;; 	   "j" 'ein:worksheet-goto-next-input
-;;            "k" 'ein:worksheet-goto-prev-input
-;;            "J" 'ein:worksheet-move-cell-down
-;;            "K" 'ein:worksheet-move-cell-up
-;;            "e" 'ein:worksheet-toggle-output
-;;            "d" 'ein:worksheet-kill-cell
-;;            "y" 'ein:worksheet-copy-cell
-;;            "p" 'ein:worksheet-yank-cell
-;;            "m" 'ein:worksheet-merge-cell
-;;            "s" 'ein:worksheet-split-cell-at-point
-;;            "o" 'ein:worksheet-insert-cell-below
-;;            "O" 'ein:worksheet-insert-cell-above
-;;            "t" 'ein:worksheet-toggle-cell-type
-;;            "u" 'ein:worksheet-toggle-cell-type ;; For historical reasons.
-;;            "C-m" 'ein:worksheet-execute-cell
-;;            "l" 'ein:worksheet-clear-output
-;;            "L" 'ein:worksheet-clear-all-output
-;;            "fs" 'ein:notebook-save-notebook-command
-;;            "fc" 'ein:notebook-reconnect-session-command
-;;            "fr" 'ein:notebook-restart-session-command
-;;            "C-r" 'ein:notebook-rename-command
-;;            "x" 'ein:notebook-close
-;;            "gg" 'ein:kernel-utils-jump-to-source-command
-;;            "hh" 'ein:kernel-utils-request-tooltip-or-help
-;;            "z" 'ein:notebook-kernel-interrupt-command))
-
-;; (use-package! ein-kernel-utils
-;;   :config
-;;   (add-hook 'ein:notebook-mode-hook #'(lambda () (add-to-list 'company-backends 'ein:company-backend)))
-;;   (add-hook 'ein:notebook-mode-hook
-;;             #'(lambda ()
-;;                 (when (featurep 'eldoc)
-;;                   (add-function :before-until (local 'eldoc-documentation-function)
-;;                                 #'ein:completer-get-eldoc-signature)
-;;                   (eldoc-mode))))
-;;   (add-hook 'ein:on-kernel-connect-functions #'(lambda (kernel)
-;;                                                  (ein:kernel-utils-load-safely kernel)))
-;;   (add-hook 'org-src-mode-hook #'ein:on-edit-source-block)
-;;   (add-hook 'hy-mode-hook
-;; 	    (lambda ()
-;; 	      (define-key python-mode-map "\C-c." 'ein:kernel-utils-jump-to-source)
-;; 	      (define-key python-mode-map "\C-c\C-h" 'ein:kernel-utils-request-tooltip-or-help)
-
-;; 	      (define-key python-mode-map "\C-c\C-c" 'ein:connect-run-or-eval-buffer)
-;; 	      (define-key python-mode-map "\C-c\C-l" 'ein:connect-reload-buffer)
-;; 	      (define-key python-mode-map "\C-c\C-r" 'ein:connect-eval-region)
-;; 	      (define-key python-mode-map (kbd "C-:") 'ein:shared-output-eval-string)
-;; 	      (define-key python-mode-map "\C-c\C-z" 'ein:connect-pop-to-notebook)
-;; 	      (define-key python-mode-map "\C-c\C-x" 'ein:tb-show)
-;; 	      (define-key python-mode-map (kbd "C-c C-/") 'ein:notebook-scratchsheet-open)))
-;;   (add-hook 'python-mode-hook
-;;             (lambda ()
-;;               (define-key python-mode-map "\C-c." 'ein:kernel-utils-jump-to-source)
-;;               (define-key python-mode-map "\C-c\C-h" 'ein:kernel-utils-request-tooltip-or-help)
-;;               (define-key python-mode-map "\C-c\C-c" 'ein:connect-run-or-eval-buffer)
-;;               (define-key python-mode-map "\C-c\C-l" 'ein:connect-reload-buffer)
-;;               (define-key python-mode-map "\C-c\C-r" 'ein:connect-eval-region)
-;;               (define-key python-mode-map (kbd "C-:") 'ein:shared-output-eval-string)
-;;               (define-key python-mode-map "\C-c\C-z" 'ein:connect-pop-to-notebook)
-;;               (define-key python-mode-map "\C-c\C-x" 'ein:tb-show)
-;;               (define-key python-mode-map (kbd "C-c C-/") 'ein:notebook-scratchsheet-open))))
+(use-package! symex
+  :config
+  (symex-initialize)
+  (map! (:prefix "z" :n ";" 'symex-mode-interface )))
 
 (setq +python-ipython-repl-args '("-i" "--simple-prompt" "--no-color-info"))
 (setq +python-jupyter-repl-args '("--simple-prompt"))
@@ -196,7 +122,16 @@
 (defun display-ansi-colors ()
   (ansi-color-apply-on-region (point-min) (point-max)))
 
+(setq-default mode-line-format
+              ;; ...
+               '(:eval (when (featurep 'lispyville)
+                         (lispyville-mode-line-string)))
+              ;; ...
+              )
+
 (add-hook 'org-babel-after-execute-hook #'display-ansi-colors)
+
+(add-to-list 'Info-directory-list "~/.local/share/info")
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

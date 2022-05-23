@@ -49,33 +49,16 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
-(unpin! org-roam)
+;; (unpin! org-roam)
 (package! websocket)
 (package! edit-server)
 (package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
+(package! org-modern)
 
 (package! avy)
 (package! page-break-lines)
-;; (package! ein :recipe (:branch "old-master"))
 
-
-;; (package! emacs-jupyter
-;;    :recipe (:type git :host github :repo "nnicandor/emacs-jupyter"))
-;; (package! zmq)
-;; (package! websocket)
-;; (package! simple-httpd)
-
-;; (package! emacs-jupyter
-;;   :recipe (:local-repo "~/code/emacs-jupyter"))
-
-;; (package! ein-kernel-utils
-;;   :recipe (:local-repo  "~/Projects/ein-kernel-utils"
-;;            :files ("*.el" "*.hy" "*.py")
-;;            :build (:not compile)))
-
-;;
-;;
-;;(package! symex)
+(package! symex)
 
 (package! emacs-inspector
   :recipe (:type git :host github :repo "mmontone/emacs-inspector"))
