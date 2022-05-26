@@ -61,6 +61,7 @@
   :config (global-org-modern-mode))
 
 (use-package! symex
+  :custom (symex-modal-backend 'hydra)
   :config
   (symex-initialize)
   (map! (:prefix "z" :n ";" 'symex-mode-interface )))
