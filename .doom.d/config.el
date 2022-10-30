@@ -47,6 +47,8 @@
 (use-package! avy
   :commands (avy-goto-word-1))
 
+(use-package! nano-theme)
+
 (use-package! page-break-lines
   :config
   (global-page-break-lines-mode 1))
@@ -60,11 +62,11 @@
 (use-package! org-modern
   :config (global-org-modern-mode))
 
-(use-package! symex
-  :custom (symex-modal-backend 'hydra)
-  :config
-  (symex-initialize)
-  (map! (:prefix "z" :n ";" 'symex-mode-interface )))
+;; (use-package! symex
+;;   :custom (symex-modal-backend 'hydra)
+;;   :config
+;;   (symex-initialize)
+;;   (map! (:prefix "z" :n ";" 'symex-mode-interface )))
 
 (setq +python-ipython-repl-args '("-i" "--simple-prompt" "--no-color-info"))
 (setq +python-jupyter-repl-args '("--simple-prompt"))
@@ -85,14 +87,13 @@
       (portacle-path (concat "config/config.d/" path))
     (concat "~/custom-emacs/" path)))
 
-(org-babel-do-load-languages
- 'org-babel-load-languages
- `((emacs-lisp . t)
-   (lisp . t)
-   (python . t)
-   (jupyter . t)))
+;; (org-babel-do-load-languages
+;;  'org-babel-load-languages
+;;  `((emacs-lisp . t)
+;;    (lisp . t)
+;;    (python . t)
+;;    (jupyter . t)))
 
-(after! org (add-to-list 'org-modules 'ol-info))
 
 ;; (remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
 
@@ -134,6 +135,21 @@
 
 (add-to-list 'Info-directory-list "~/.local/share/info")
 
+;;;  Configure org capture for common service actions
+;;;
+
+(setq +service-forecast-file "/mnt/c/Users/E341194/OneDrive - Honeywell/Customers/Journals/roam/20220622102420-service_forecast.org")
+(setq +service-forecast-template "/mnt/c/Users/E341194/OneDrive - Honeywell/Customers/Journals/roam/ForecastTemplate.org")
+
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "PROJ(p)" "LOOP(r)" "STRT(s)" "WAIT(w)" "HOLD(h)" "IDEA(i)" "|" "DONE(d)" "KILL(k)")
+        (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")
+        (sequence "|" "OKAY(o)" "YES(y)" "NO(n)")
+        (sequence "OPPORTUNITY(o)" "PROPOSAL-NEGOTIATION(p)" "FOS-STAFFING(f)" "|" "COMPLETED(c)")))
+
+(setq switch-to-buffer-obey-display-actions t)
+
+(conda-env-activate "base")
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one

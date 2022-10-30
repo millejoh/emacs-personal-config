@@ -54,11 +54,12 @@
 (package! edit-server)
 (package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
 (package! org-modern)
+(package! nano-theme :recipe (:host github :repo "rougier/nano-theme" :files ("*.el")))
 
 (package! avy)
 (package! page-break-lines)
 
-(package! symex)
+;; (package! symex)
 
 (package! emacs-inspector
   :recipe (:type git :host github :repo "mmontone/emacs-inspector"))
