@@ -44,6 +44,11 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type nil)
 
+;; Because, in the end, paredit was all I ever needed. See
+;; https://github.com/luxbock/evil-cleverparens for documentation.
+(add-hook 'lisp-mode-hook #'evil-cleverparens-mode)
+(add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode)
+
 (use-package! avy
   :commands (avy-goto-word-1))
 
@@ -140,12 +145,15 @@
 
 (setq +service-forecast-file "/mnt/c/Users/E341194/OneDrive - Honeywell/Customers/Journals/roam/20220622102420-service_forecast.org")
 (setq +service-forecast-template "/mnt/c/Users/E341194/OneDrive - Honeywell/Customers/Journals/roam/ForecastTemplate.org")
+(setq +service-case-file "/mnt/c/Users/E341194/OneDrive - Honeywell/Customers/Journals/roam/20221108070724-service_cases.org")
+(setq +service-case-template "/mnt/c/Users/E341194/OneDrive - Honeywell/Customers/Journals/roam/CaseTemplate.org")
 
 (setq org-todo-keywords
       '((sequence "TODO(t)" "PROJ(p)" "LOOP(r)" "STRT(s)" "WAIT(w)" "HOLD(h)" "IDEA(i)" "|" "DONE(d)" "KILL(k)")
         (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")
         (sequence "|" "OKAY(o)" "YES(y)" "NO(n)")
-        (sequence "OPPORTUNITY(o)" "PROPOSAL-NEGOTIATION(p)" "FOS-STAFFING(f)" "|" "COMPLETED(c)")))
+        (sequency "CASE" "|" "CLOSED(C)" "REASSIGNED(R)")))
+
 
 (setq switch-to-buffer-obey-display-actions t)
 

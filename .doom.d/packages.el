@@ -56,6 +56,7 @@
 (package! org-modern)
 (package! nano-theme :recipe (:host github :repo "rougier/nano-theme" :files ("*.el")))
 
+(package! evil-cleverparens)
 (package! avy)
 (package! page-break-lines)
 
