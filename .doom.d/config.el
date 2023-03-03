@@ -180,6 +180,16 @@
         (sequence "|" "OKAY(o)" "YES(y)" "NO(n)")
         (sequency "CASE" "|" "CLOSED(C)" "REASSIGNED(R)")))
 
+(set-email-account! "icloud"
+  '((mu4e-sent-folder       . "/icloud/Sent Mail")
+    (mu4e-drafts-folder     . "/icloud/Drafts")
+    (mu4e-trash-folder      . "/icloud/Trash")
+    (mu4e-refile-folder     . "/icloud/All Mail")
+    (smtpmail-smtp-user     . "millejoh@mac.com")
+    (mu4e-compose-signature . "---\nYours truly\nJohn"))
+  t)
+
+(setq mu4e-update-interval 60)
 
 (setq switch-to-buffer-obey-display-actions t)
 
