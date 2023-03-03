@@ -140,6 +140,32 @@
 
 (add-to-list 'Info-directory-list "~/.local/share/info")
 
+;;; Better column display in org.
+;;; per: https://stackoverflow.com/questions/7864985/org-mode-make-links-clickable-in-column-view
+;;;
+(defun my-column-display-value-transformer (column-title value)
+  "Modifies the value to display in column view."
+  (when (and (string-prefix-p "[[" value)
+             (string-suffix-p "]]" value))
+    (string-match org-link-bracket-re value)
+    (let ((target (match-string 1 value))
+          (descr (match-string 2 value)))
+      (setq value (or descr target))
+      ;; put the suitable faces:
+      (put-text-property 0 (length value) 'face 'org-link value)
+      (put-text-property 0 (length value) 'mouse-face 'highlight value)
+      ;; help echo:
+      (put-text-property 0 (length value) 'help-echo
+                         (format "LINK: %s" target) value)
+      ;; put a local keymap:
+      (put-text-property 0 (length value) 'keymap
+                         '(keymap (mouse-1 . org-columns-open-link)) value)
+      value)))
+
+(setq org-columns-modify-value-for-display-function
+      #'my-column-display-value-transformer)
+
+;;;
 ;;;  Configure org capture for common service actions
 ;;;
 
