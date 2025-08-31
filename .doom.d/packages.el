@@ -11,7 +11,7 @@
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
-;; https://github.com/raxod502/straight.el#the-recipe-format
+;; https://github.com/radian-software/straight.el#the-recipe-format
 ;(package! another-package
 ;  :recipe (:host github :repo "username/repo"))
 
@@ -34,7 +34,7 @@
 
 ;; Specify a `:branch' to install a package from a particular branch or tag.
 ;; This is required for some packages whose default branch isn't 'master' (which
-;; our package manager can't deal with; see raxod502/straight.el#279)
+;; our package manager can't deal with; see radian-software/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 
 ;; Use `:pin' to specify a particular commit to install.
@@ -49,16 +49,15 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
-;; (unpin! org-roam)
-(package! websocket)
-(package! edit-server)
+(package! package-lint :pin "21edc6d0d0eadd2d0a537f422fb9b7b8a3ae6991") ;; Per doom github issue #8286.
 (package! org-roam-ui :recipe (:host github :repo "org-roam/org-roam-ui" :files ("*.el" "out")))
 (package! org-modern)
 (package! nano-theme :recipe (:host github :repo "rougier/nano-theme" :files ("*.el")))
-
-(package! evil-cleverparens)
+(package! edit-server)
+;(package! evil-cleverparens)
 (package! avy)
 (package! page-break-lines)
+(package! ox-json)
 
 ;; (package! symex)
 

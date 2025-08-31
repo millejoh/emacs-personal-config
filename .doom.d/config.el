@@ -2,52 +2,110 @@
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
+;;
 
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+;;;
+;;;  Configure org capture for common service actions
+;;;
+(load! "work-config.el")
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
-;; clients, file templates and snippets.
+;; clients, file templates and snippets. It is optional.
 (setq user-full-name "John Miller"
-      user-mail-address "millejoh@mac.com")
+      user-mail-address "john.miller@uop.com")
 
-;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
-;; are the three important ones:
+;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
-;; + `doom-font'
-;; + `doom-variable-pitch-font'
-;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
+;; - `doom-font' -- the primary font to use
+;; - `doom-variable-pitch-font' -- a non-monospace font (where applicable)
+;; - `doom-big-font' -- used for `doom-big-font-mode'; use this for
 ;;   presentations or streaming.
+;; - `doom-unicode-font' -- for unicode glyphs
+;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
 ;;
-;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-;; font string. You generally only need these two:
-;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
-;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-
-(setq doom-font (font-spec :family "Hack" :size 14))
+;; See 'C-h v doom-font' for documentation and more examples of what they
+;; accept. For example:
+;;
+(setq doom-font (font-spec :family "Fira Code" :size 14)
+      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 14))
+;;
+;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
+;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
+;; refresh your font settings. If Emacs still can't find your font, it likely
+;; wasn't installed correctly. Font issues are rarely Doom issues!
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-nord)
+(setq doom-theme 'nano) ;; nano-dark
 
-;; Other themes that seem to work:
-;;  doom-nord
-;;  doom-flatwhite
-;;  doom-palenite
-;;  doom-plaindark
-;;  doom-opera
-
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-;; (setq org-directory "~/Journal/")
+;; We like some whitespace between the fringe and text
+(setq-default left-margin-width 1 right-margin-width 1)
+;; (set-window-buffer nil (current-buffer))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type nil)
 
+;; If you use `org' and don't want your org files in the default location below,
+;; change `org-directory'. It must be set before org loads!
+;; (setq org-directory "~/org/")           ;
+
+(setq inferior-lisp-program "ros run")
+
+;; (setq conda-anaconda-home "/Users/E341194/anaconda3")
+
+;; (conda-env-activate "base")
+
+(setq +python-ipython-repl-args '("-i" "--simple-prompt" "--no-color-info"))
+(setq +python-jupyter-repl-args '("--simple-prompt"))
+
+;;; Custom leader maps
+;;;
+(map! :leader :desc "M-x" "SPC" 'execute-extended-command
+      :leader :desc "Jump/join/split" "j" '(:ignore t :which-key "jump/join/split")
+      :leader :desc "Jump to line" "jl" 'avy-goto-line
+      :leader :desc "Jump to word" "jw" 'avy-goto-word-1
+      :leader :desc "Jumpt to char" "jc" 'avy-goto-char
+      :leader :desc "Close window or workspace" "w0" '+workspace/close-window-or-workspace)
+
+;; Whenever you reconfigure a package, make sure to wrap your config in an
+;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
+;;
+;;   (after! PACKAGE
+;;     (setq x y))
+;;
+;; The exceptions to this rule:
+;;
+;;   - Setting file/directory variables (like `org-directory')
+;;   - Setting variables which explicitly tell you to set them before their
+;;     package is loaded (see 'C-h v VARIABLE' to look up their documentation).
+;;   - Setting doom variables (which start with 'doom-' or '+').
+;;
+;; Here are some additional functions/macros that will help you configure Doom.
+;;
+;; - `load!' for loading external *.el files relative to this one
+;; - `use-package!' for configuring packages
+;; - `after!' for running code after a package has loaded
+;; - `add-load-path!' for adding directories to the `load-path', relative to
+;;   this file. Emacs searches the `load-path' when you load packages with
+;;   `require' or `use-package'.
+;; - `map!' for binding new keys
+;;
+;; To get information about any of these functions/macros, move the cursor over
+;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
+;; This will open documentation for it, including demos of how they are used.
+;; Alternatively, use `C-h o' to look up a symbol (functions, variables, faces,
+;; etc).
+;;
+;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
+;; they are implemented.
+
 ;; Because, in the end, paredit was all I ever needed. See
 ;; https://github.com/luxbock/evil-cleverparens for documentation.
-(add-hook 'lisp-mode-hook #'evil-cleverparens-mode)
-(add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode)
+;; (add-hook 'lisp-mode-hook #'evil-cleverparens-mode)
+;; (add-hook 'emacs-lisp-mode-hook #'evil-cleverparens-mode)
 
 (use-package! avy
   :commands (avy-goto-word-1))
@@ -67,46 +125,6 @@
 (use-package! org-modern
   :config (global-org-modern-mode))
 
-;; (use-package! symex
-;;   :custom (symex-modal-backend 'hydra)
-;;   :config
-;;   (symex-initialize)
-;;   (map! (:prefix "z" :n ";" 'symex-mode-interface )))
-
-(setq +python-ipython-repl-args '("-i" "--simple-prompt" "--no-color-info"))
-(setq +python-jupyter-repl-args '("--simple-prompt"))
-
-;;; Custom leader maps
-;;;
-(map! :leader :desc "M-x" "SPC" 'execute-extended-command
-      :leader :desc "Jump/join/split" "j" '(:ignore t :which-key "jump/join/split")
-      :leader :desc "Jump to line" "jl" 'avy-goto-line
-      :leader :desc "Jump to word" "jw" 'avy-goto-word-1
-      :leader :desc "Jumpt to char" "jc" 'avy-goto-char
-      :leader :desc "Close window or workspace" "w0" '+workspace/close-window-or-workspace)
-
-;;; Find a way to make this common to my custom-emacs config, as of the moment
-;;; there is too much duplication.
-(defun config-path (path)
-  (if (locate-library "portacle")
-      (portacle-path (concat "config/config.d/" path))
-    (concat "~/custom-emacs/" path)))
-
-;; (org-babel-do-load-languages
-;;  'org-babel-load-languages
-;;  `((emacs-lisp . t)
-;;    (lisp . t)
-;;    (python . t)
-;;    (jupyter . t)))
-
-
-;; (remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
-
-(load! "elisp.el")
-
-(use-package! websocket
-    :after org-roam)
-
 (use-package! org-roam-ui
     :after org-roam ;; or :after org
 ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
@@ -122,6 +140,15 @@
 (general-auto-unbind-keys :off)
 (remove-hook 'doom-after-init-modules-hook #'general-auto-unbind-keys)
 
+(after! org
+  (setq org-image-max-width 1200)
+  (setq org-pretty-entities t)
+  (setq org-auto-align-tags nil)
+  (setq line-spacing 0.1)
+  ;; (setq org-startup-indented nil)
+  (add-to-list 'org-file-apps '("\\.docx$" . default)))
+
+;;;
 ;;;  Fix for emacs-jupyter per issue #366, though may still see issues since
 ;; ansi-color--find-face has been renamed to ansi-color--face-vec-face in more recent
 ;; versions of emacs.
@@ -138,9 +165,7 @@
 
 (add-hook 'org-babel-after-execute-hook #'display-ansi-colors)
 
-(add-to-list 'Info-directory-list "~/.local/share/info")
-
-;;; Better column display in org.
+;;;; Better column display in org.
 ;;; per: https://stackoverflow.com/questions/7864985/org-mode-make-links-clickable-in-column-view
 ;;;
 (defun my-column-display-value-transformer (column-title value)
@@ -165,48 +190,77 @@
 (setq org-columns-modify-value-for-display-function
       #'my-column-display-value-transformer)
 
-;;;
-;;;  Configure org capture for common service actions
-;;;
-
-(setq +service-forecast-file "/mnt/c/Users/E341194/OneDrive - Honeywell/Customers/Journals/roam/20220622102420-service_forecast.org")
-(setq +service-forecast-template "/mnt/c/Users/E341194/OneDrive - Honeywell/Customers/Journals/roam/ForecastTemplate.org")
-(setq +service-case-file "/mnt/c/Users/E341194/OneDrive - Honeywell/Customers/Journals/roam/20221108070724-service_cases.org")
-(setq +service-case-template "/mnt/c/Users/E341194/OneDrive - Honeywell/Customers/Journals/roam/CaseTemplate.org")
-
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "PROJ(p)" "LOOP(r)" "STRT(s)" "WAIT(w)" "HOLD(h)" "IDEA(i)" "|" "DONE(d)" "KILL(k)")
-        (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")
-        (sequence "|" "OKAY(o)" "YES(y)" "NO(n)")
-        (sequency "CASE" "|" "CLOSED(C)" "REASSIGNED(R)")))
-
-(set-email-account! "icloud"
-  '((mu4e-sent-folder       . "/icloud/Sent Mail")
-    (mu4e-drafts-folder     . "/icloud/Drafts")
-    (mu4e-trash-folder      . "/icloud/Trash")
-    (mu4e-refile-folder     . "/icloud/All Mail")
-    (smtpmail-smtp-user     . "millejoh@mac.com")
-    (mu4e-compose-signature . "---\nYours truly\nJohn"))
-  t)
-
-(setq mu4e-update-interval 60)
 
 (setq switch-to-buffer-obey-display-actions t)
+; (add-to-list 'Info-directory-list "~/.local/share/info")
 
-(conda-env-activate "base")
-;; Here are some additional functions/macros that could help you configure Doom:
+;;; add to $DOOMDIR/config.el
+(remove-hook 'diff-hl-mode-hook #'diff-hl-flydiff-mode)
+
+
+(defun remove-dos-eol ()
+  "Do not show ^M in files containing mixed UNIX and DOS line endings."
+  (interactive)
+  (setq buffer-display-table (make-display-table))
+  (aset buffer-display-table ?\^M []))
+
+(add-hook 'text-mode-hook 'remove-dos-eol)
+
+(defun unfill-paragraph (&optional region)
+  "Make multi-line paragraph into a single line of text.
+
+REGION unfills the region.  See URL
+`https://www.emacswiki.org/emacs/UnfillParagraph'"
+  (interactive (progn (barf-if-buffer-read-only) '(t)))
+  (let ((fill-column (point-max))
+        ;; This would override `fill-column' if it's an integer.
+        (emacs-lisp-docstring-fill-column t))
+    (fill-paragraph nil region)))
+
+;; For better R support when editing org code blocks:
 ;;
-;; - `load!' for loading external *.el files relative to this one
-;; - `use-package!' for configuring packages
-;; - `after!' for running code after a package has loaded
-;; - `add-load-path!' for adding directories to the `load-path', relative to
-;;   this file. Emacs searches the `load-path' when you load packages with
-;;   `require' or `use-package'.
-;; - `map!' for binding new keys
-;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
-;; This will open documentation for it, including demos of how they are used.
-;;
-;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
-;; they are implemented.
+(defvar org-ess-tmprs nil)
+(defun get-org-current-rsession ()
+  "When you are in an org file get the current R session based on global header, subtree, property or source code :session property whichever is relevant"
+  (setq org-ess-tmprs (cdr (assoc :session (nth 2 (org-babel-get-src-block-info t))))))
+
+(defun set-ess-R-process ()
+  "set the process to session stored in tmprs variable"
+  (message "Setting R session to %s" (eval org-ess-tmprs))
+  (setq ess-local-process-name (process-name (get-buffer-process org-ess-tmprs))))
+
+
+(advice-add 'org-edit-src-code :before #'get-org-current-rsession)
+(advice-add 'org-edit-src-code :after #'set-ess-R-process)
+
+;; Delete the following when Doom github issue #8449 is resolved.
+;; Unclear, though, is PR #8434 will actually fix this.
+;; (after! comint
+;;   (advice-remove 'comint-output-filter #'doom--comint-enable-undo-a)
+;;   (advice-remove 'comint-output-filter #'doom--comint-protect-output-in-visual-modes-a))
+
+;;*
+;;; add to $DOOMDIR/config.el
+
+;; Remove then redefine the existing advice:
+;; (advice-remove #'diff-hl-define-bitmaps #'+vc-gutter-define-thin-bitmaps-a)
+;; (defadvice! +vc-gutter-define-thin-bitmaps-a (&rest _)
+;;   :after #'diff-hl-define-bitmaps
+;;   (let* ((scale (if (and (boundp 'text-scale-mode-amount)
+;;                          (numberp text-scale-mode-amount))
+;;                     (expt text-scale-mode-step text-scale-mode-amount)
+;;                   1))
+;;          (spacing (or (and (display-graphic-p) (default-value 'line-spacing)) 0))
+;;          (h (+ (ceiling (* (frame-char-height) scale))
+;;                (if (floatp spacing)
+;;                    (truncate (* (frame-char-height) spacing))
+;;                  spacing)))
+;;          (w (min (frame-parameter nil (intern (format "%s-fringe" diff-hl-side)))
+;;                  16))
+;;          (_ (if (zerop w) (setq w 16))))
+;;     (define-fringe-bitmap 'diff-hl-bmp-middle
+;;       (make-vector
+;;        h (string-to-number (concat (make-string (/ w 2) ?1)
+;;                                    (make-string (- w (/ w 2)) ?0))
+;;                            2))
+;;       nil nil 'center)))
